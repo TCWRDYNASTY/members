@@ -1,225 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Members</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 20px;
-      font-family: sans-serif;
-      box-sizing: border-box;
-      background-color: #1e3159;
-      color: white; /* Added for better readability on dark background */
-    }
-
-    .header {
-      width: 100%;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      border: 2px solid black;
-      background-color: beige;
-      color: black;
-      padding: 20px;
-      gap: 20px;
-      box-sizing: border-box;
-      font-family: 'Courier New', monospace;
-      margin-bottom: 30px; /* Added some space below the header */
-    }
-
-    .logo-container img {
-      width: 100%;
-      max-width: 250px;
-      height: auto;
-    }
-
-    .header-text {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .header-text p {
-      margin: 5px 0;
-    }
-
-    .header .title { font-size: 2rem; font-weight: 590; }
-    .header .subtitle { font-size: 1.5rem; }
-    .header .since { font-size: 1.2rem; }
-
-    .champ {
-      background-color: #2d3748;
-      text-align: center;
-      font-family: 'Inter', sans-serif;
-      margin: 10px auto; /* Centered and added vertical margin */
-      padding: 15px;
-      border: 4px solid #4a5568;
-      border-radius: 3rem;
-      box-sizing: border-box;
-      width: 100%; /* Ensures it takes full width of its parent column */
-      max-width: 20rem; /* Keeps champs from getting too wide in large columns */
-      color: #e2e8f0;
-      font-weight: bold;
-      position: relative; /* Needed for stamp positioning */
-      margin-bottom: 20px; /* Space between champs */
-    }
-
-    .champ p:last-child {
-      font-size: 0.9em;
-      font-family: 'Inter', sans-serif;
-      margin-top: 10px;
-    }
-
-.champ-content {
-  display: flex;
-  align-items: center;
-  gap: 12px; /* space between image and name */
-  text-align: left;
-}
-
-.champ-content img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #e2e8f0;
-}
-
-
-    .retired-stamp {
-      position: absolute;
-      top: 35px;
-      left: 10px;
-      background-color: transparent;
-      color: #dc3545;
-      font-family: 'Stencil Std', Impact, sans-serif; /* Added fallback fonts */
-      font-size: 2em;
-      font-weight: bold;
-      display: inline-block;
-      padding: 10px;
-      box-shadow:inset 0px 0px 0px 5px red;
-      transform: rotate(-25deg);
-      z-index: 10; /* Ensure stamp is above content */
-    }
-
-    /* --- Column Styles (now for 4 columns) --- */
-    .column-container {
-      display: flex; /* Makes the children (columns) display side-by-side */
-      justify-content: space-between; /* Distributes space evenly and pushes columns apart */
-      gap: 20px; /* Provides space between the columns themselves */
-      margin-bottom: 30px; /* Space below the entire column section */
-      flex-wrap: wrap; /* Allows columns to wrap to the next line on smaller screens */
-
-      /* --- Visual Aids for Debugging (Remove these for final design) --- */
-      /* border: 3px dashed lightblue; */
-      /* padding: 15px; */
-      /* background-color: rgba(0, 0, 0, 0.2); */
-    }
-
-    /* Apply common styles to all four columns */
-    .column-left,
-    .column-center,
-    .column-right,
-    .column-retired { /* Added the new column class here */
-      flex: 1; /* Each column takes up an EQUAL share of available space */
-      padding: 15px; /* Internal padding within each column */
-      box-sizing: border-box; /* Ensures padding/border are included in total width */
-
-      /* Use flexbox within each column to stack and center its content */
-      display: flex;
-      flex-direction: column; /* Stacks the .champ divs vertically */
-      align-items: center; /* Centers the .champ divs horizontally within their column */
-
-      /* --- Visual Aids for Debugging (Remove these for final design) --- */
-      /* background-color: rgba(255, 255, 255, 0.1); */
-      /* border: 1px solid rgba(255, 255, 255, 0.3); */
-    }
-
-    /* Specific (Optional) styles for individual columns if needed */
-    .column-retired {
-        /* You could add specific styling for the retired column here */
-        /* background-color: rgba(220, 20, 60, 0.2); /* Crimson tint */
-        /* border-color: crimson; */
-    }
-
-    /* Top Section Image Styles (appears below the main columns) */
-    .top-section {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-     padding-bottom: 0.2rem;
-    }
-
-    .top-section img {
-      max-width: 100%;
-      height: auto;
-      width: 300px; /* Fixed width, but respects max-width */
-      border: 3px solid white;
-      border-radius: 10px;
-    }
-
-    /* --- Responsive Design (Media Queries) --- */
-    /* For 4 columns, we'll adjust breakpoints.
-       Perhaps 2 columns on tablets, 1 column on mobile. */
-
-    @media (max-width: 1200px) { /* On slightly smaller screens, maybe go to 2 columns */
-        .column-container {
-            flex-wrap: wrap; /* Allow wrapping */
-            justify-content: center; /* Center columns when they wrap */
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Members</title>
+    <style>
+        /* ----------------------------------- */
+        /* Basic & Universal Styles */
+        /* ----------------------------------- */
+        html {
+            box-sizing: border-box;
         }
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: sans-serif;
+            background-color: #1e3159;
+            color: white;
+            min-height: 100vh; /* Ensure body takes at least full viewport height */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ----------------------------------- */
+        /* Header Section Styles */
+        /* ----------------------------------- */
+        .header {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border: 2px solid black;
+            background-color: beige;
+            color: black;
+            padding: 20px;
+            gap: 20px; /* Space between logo and text */
+            font-family: 'Courier New', monospace;
+            margin-bottom: 30px;
+        }
+
+        .logo-container img {
+            width: 100%; /* Make image responsive within its container */
+            max-width: 250px; /* Limit max size */
+            height: auto;
+        }
+
+        .header-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center; /* Center text when stacked */
+        }
+
+        .header-text p {
+            margin: 5px 0;
+        }
+
+        .header .title { font-size: clamp(1.5rem, 4vw, 2.5rem); font-weight: 590; } /* Fluid font size */
+        .header .subtitle { font-size: clamp(1.2rem, 3vw, 2rem); } /* Fluid font size */
+        .header .since { font-size: clamp(1rem, 2vw, 1.5rem); } /* Fluid font size */
+
+        /* ----------------------------------- */
+        /* Championship Card Styles (.champ) */
+        /* ----------------------------------- */
+        .champ {
+            background-color: #2d3748;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            margin: 0 auto 20px auto; /* Centered and consistent bottom margin */
+            padding: 15px;
+            border: 4px solid #4a5568;
+            border-radius: 3rem;
+            width: 100%; /* Ensures it takes full width of its parent column */
+            max-width: 20rem; /* Keeps champs from getting too wide in large columns */
+            color: #e2e8f0;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .champ p:last-child {
+            font-size: 0.9em;
+            font-family: 'Inter', sans-serif;
+            margin-top: 10px;
+        }
+
+        .champ-content {
+            display: flex;
+            align-items: center;
+            gap: 12px; /* Space between image and name */
+            text-align: left;
+        }
+
+        .champ-content img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover; /* Ensures image covers the area without distortion */
+            border: 2px solid #e2e8f0;
+        }
+
+        /* ----------------------------------- */
+        /* Retired Stamp Styles */
+        /* ----------------------------------- */
+        .retired-stamp {
+            position: absolute;
+            top: 35px;
+            left: 10px;
+            background-color: transparent;
+            color: #dc3545;
+            font-family: 'Stencil Std', Impact, sans-serif;
+            font-size: 2em;
+            font-weight: bold;
+            display: inline-block;
+            padding: 10px;
+            box-shadow: inset 0px 0px 0px 5px red;
+            transform: rotate(-25deg);
+            z-index: 10;
+            white-space: nowrap; /* Prevent "RETIRED" from breaking */
+        }
+
+        /* ----------------------------------- */
+        /* Column Layout Styles */
+        /* ----------------------------------- */
+        .column-container {
+            display: flex;
+            justify-content: center; /* Center columns when they wrap */
+            gap: 20px; /* Space between the columns themselves */
+            margin-bottom: 30px;
+            flex-wrap: wrap; /* Allows columns to wrap */
+        }
+
         .column-left,
         .column-center,
         .column-right,
         .column-retired {
-            flex: 1 1 45%; /* Allows 2 columns per row, each taking ~45% of width */
-            max-width: 45%; /* To ensure no more than 2 per row with gap */
-            margin-bottom: 20px; /* Add space between wrapped columns */
+            flex: 1 1 22%; /* Default for 4 columns: each takes roughly 22% of space, allowing for gaps */
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centers the .champ divs horizontally within their column */
         }
-    }
 
-    @media (max-width: 768px) { /* On typical tablet/mobile screens, stack all columns */
-      .column-container {
-        flex-direction: column; /* Stacks all columns vertically */
-        align-items: center; /* Centers the stacked columns */
-      }
-      .column-left,
-      .column-center,
-      .column-right,
-      .column-retired {
-        width: 100%; /* Take full width when stacked */
-        max-width: 400px; /* Optional: limit the max width of stacked columns */
-        margin-bottom: 20px; /* Add space between stacked columns */
-      }
-      /* Ensure the last column doesn't have extra bottom margin if it's the last element */
-      .column-container > div:last-child {
-        margin-bottom: 0;
-      }
+        /* ----------------------------------- */
+        /* Top Section Image Styles */
+        /* ----------------------------------- */
+        .top-section {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 0.2rem;
+            margin-top: auto; /* Pushes the section to the bottom */
+        }
 
-      /* Header adjustments for smaller screens */
-      .header {
-        flex-direction: column;
-      }
-      .logo-container img {
-        margin-bottom: 15px;
-      }
-      .header .title { font-size: 1.5rem; }
-      .header .subtitle { font-size: 1.2rem; }
-      .header .since { font-size: 1rem; }
-    }
-
-    /* Additional smaller mobile adjustment for image section */
-    @media (max-width: 480px) {
         .top-section img {
-            width: 100%; /* Make image full width on very small screens */
+            max-width: 100%;
+            height: auto;
+            width: 300px;
+            border: 3px solid white;
+            border-radius: 10px;
+            margin: 10px; /* Add some margin around images */
         }
-    }
 
-  </style>
+        /* ----------------------------------- */
+        /* Responsive Design (Media Queries) */
+        /* ----------------------------------- */
+
+        /* For 3 columns (e.g., larger tablets - up to 1200px) */
+        @media (max-width: 1200px) {
+            .column-left,
+            .column-center,
+            .column-right,
+            .column-retired {
+                flex: 1 1 30%; /* Three columns per row (approx 30% each) */
+            }
+        }
+
+        /* For 2 columns (e.g., smaller tablets - up to 900px) */
+        @media (max-width: 900px) {
+            .column-left,
+            .column-center,
+            .column-right,
+            .column-retired {
+                flex: 1 1 45%; /* Two columns per row (approx 45% each) */
+            }
+        }
+
+        /* On typical mobile screens (up to 600px), stack all columns */
+        @media (max-width: 600px) {
+            .column-container {
+                flex-direction: column; /* Stacks all columns vertically */
+                align-items: center; /* Centers the stacked columns */
+            }
+            .column-left,
+            .column-center,
+            .column-right,
+            .column-retired {
+                width: 100%; /* Take full width when stacked */
+                max-width: 400px; /* Optional: limit the max width of stacked columns */
+                flex: 1 1 auto; /* Allow items to naturally size */
+            }
+
+            /* Header adjustments for smaller screens */
+            .header {
+                flex-direction: column;
+            }
+            .logo-container img {
+                margin-bottom: 15px;
+            }
+            /* Font sizes are now fluid with clamp, so specific media query adjustments are less critical */
+        }
+
+        /* Very small screens (up to 400px) */
+        @media (max-width: 400px) {
+            body {
+                padding: 10px;
+            }
+            .champ {
+                padding: 10px;
+                border-radius: 2rem;
+            }
+            .champ-content {
+                flex-direction: column; /* Stack image and name */
+                align-items: center;
+                text-align: center;
+            }
+            .champ-content img {
+                margin-bottom: 5px;
+            }
+            .retired-stamp {
+                font-size: 1.5em; /* Smaller stamp on very small screens */
+                top: 20px;
+                left: 5px;
+                transform: rotate(-20deg);
+                padding: 5px;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
   <div class="header">
