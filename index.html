@@ -1,99 +1,358 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Games</title>
-    <style>
-        * {
-            box-sizing: border-box;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Members</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: sans-serif;
+      box-sizing: border-box;
+      background-color: #1e3159;
+      color: white; /* Added for better readability on dark background */
+    }
+
+    .header {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border: 2px solid black;
+      background-color: beige;
+      color: black;
+      padding: 20px;
+      gap: 20px;
+      box-sizing: border-box;
+      font-family: 'Courier New', monospace;
+      margin-bottom: 30px; /* Added some space below the header */
+    }
+
+    .logo-container img {
+      width: 100%;
+      max-width: 250px;
+      height: auto;
+    }
+
+    .header-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header-text p {
+      margin: 5px 0;
+    }
+
+    .header .title { font-size: 2rem; font-weight: 590; }
+    .header .subtitle { font-size: 1.5rem; }
+    .header .since { font-size: 1.2rem; }
+
+    .champ {
+      background-color: #2d3748;
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      margin: 10px auto; /* Centered and added vertical margin */
+      padding: 15px;
+      border: 4px solid #4a5568;
+      border-radius: 3rem;
+      box-sizing: border-box;
+      width: 100%; /* Ensures it takes full width of its parent column */
+      max-width: 20rem; /* Keeps champs from getting too wide in large columns */
+      color: #e2e8f0;
+      font-weight: bold;
+      position: relative; /* Needed for stamp positioning */
+      margin-bottom: 20px; /* Space between champs */
+    }
+
+    .champ p:last-child {
+      font-size: 0.9em;
+      font-family: 'Inter', sans-serif;
+      margin-top: 10px;
+    }
+
+.champ-content {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* space between image and name */
+  text-align: left;
+}
+
+.champ-content img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e2e8f0;
+}
+
+
+    .retired-stamp {
+      position: absolute;
+      top: 35px;
+      left: 10px;
+      background-color: transparent;
+      color: #dc3545;
+      font-family: 'Stencil Std', Impact, sans-serif; /* Added fallback fonts */
+      font-size: 2em;
+      font-weight: bold;
+      display: inline-block;
+      padding: 10px;
+      box-shadow:inset 0px 0px 0px 5px red;
+      transform: rotate(-25deg);
+      z-index: 10; /* Ensure stamp is above content */
+    }
+
+    /* --- Column Styles (now for 4 columns) --- */
+    .column-container {
+      display: flex; /* Makes the children (columns) display side-by-side */
+      justify-content: space-between; /* Distributes space evenly and pushes columns apart */
+      gap: 20px; /* Provides space between the columns themselves */
+      margin-bottom: 30px; /* Space below the entire column section */
+      flex-wrap: wrap; /* Allows columns to wrap to the next line on smaller screens */
+
+      /* --- Visual Aids for Debugging (Remove these for final design) --- */
+      /* border: 3px dashed lightblue; */
+      /* padding: 15px; */
+      /* background-color: rgba(0, 0, 0, 0.2); */
+    }
+
+    /* Apply common styles to all four columns */
+    .column-left,
+    .column-center,
+    .column-right,
+    .column-retired { /* Added the new column class here */
+      flex: 1; /* Each column takes up an EQUAL share of available space */
+      padding: 15px; /* Internal padding within each column */
+      box-sizing: border-box; /* Ensures padding/border are included in total width */
+
+      /* Use flexbox within each column to stack and center its content */
+      display: flex;
+      flex-direction: column; /* Stacks the .champ divs vertically */
+      align-items: center; /* Centers the .champ divs horizontally within their column */
+
+      /* --- Visual Aids for Debugging (Remove these for final design) --- */
+      /* background-color: rgba(255, 255, 255, 0.1); */
+      /* border: 1px solid rgba(255, 255, 255, 0.3); */
+    }
+
+    /* Specific (Optional) styles for individual columns if needed */
+    .column-retired {
+        /* You could add specific styling for the retired column here */
+        /* background-color: rgba(220, 20, 60, 0.2); /* Crimson tint */
+        /* border-color: crimson; */
+    }
+
+    /* Top Section Image Styles (appears below the main columns) */
+    .top-section {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+     padding-bottom: 0.2rem;
+    }
+
+    .top-section img {
+      max-width: 100%;
+      height: auto;
+      width: 300px; /* Fixed width, but respects max-width */
+      border: 3px solid white;
+      border-radius: 10px;
+    }
+
+    /* --- Responsive Design (Media Queries) --- */
+    /* For 4 columns, we'll adjust breakpoints.
+       Perhaps 2 columns on tablets, 1 column on mobile. */
+
+    @media (max-width: 1200px) { /* On slightly smaller screens, maybe go to 2 columns */
+        .column-container {
+            flex-wrap: wrap; /* Allow wrapping */
+            justify-content: center; /* Center columns when they wrap */
         }
-
-        body {
-            margin: 0;
-            padding: 2rem; /* Increased padding for better spacing */
-            font-family: 'Courier New', monospace;
-            background-color: #1e3159;
-            color: #f5f5f5; /* Lighter text for better contrast */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            line-height: 1.6; /* Improved readability */
+        .column-left,
+        .column-center,
+        .column-right,
+        .column-retired {
+            flex: 1 1 45%; /* Allows 2 columns per row, each taking ~45% of width */
+            max-width: 45%; /* To ensure no more than 2 per row with gap */
+            margin-bottom: 20px; /* Add space between wrapped columns */
         }
+    }
 
-        .nav-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 1.5rem; /* Adjusted padding */
-            gap: 15px; /* Increased gap for better spacing */
-            margin-bottom: 2rem; /* Added margin below navigation */
-            
-            border-radius: 8px; /* Slightly rounded corners */
+    @media (max-width: 768px) { /* On typical tablet/mobile screens, stack all columns */
+      .column-container {
+        flex-direction: column; /* Stacks all columns vertically */
+        align-items: center; /* Centers the stacked columns */
+      }
+      .column-left,
+      .column-center,
+      .column-right,
+      .column-retired {
+        width: 100%; /* Take full width when stacked */
+        max-width: 400px; /* Optional: limit the max width of stacked columns */
+        margin-bottom: 20px; /* Add space between stacked columns */
+      }
+      /* Ensure the last column doesn't have extra bottom margin if it's the last element */
+      .column-container > div:last-child {
+        margin-bottom: 0;
+      }
+
+      /* Header adjustments for smaller screens */
+      .header {
+        flex-direction: column;
+      }
+      .logo-container img {
+        margin-bottom: 15px;
+      }
+      .header .title { font-size: 1.5rem; }
+      .header .subtitle { font-size: 1.2rem; }
+      .header .since { font-size: 1rem; }
+    }
+
+    /* Additional smaller mobile adjustment for image section */
+    @media (max-width: 480px) {
+        .top-section img {
+            width: 100%; /* Make image full width on very small screens */
         }
+    }
 
-        .nav-container a {
-            color: #e0f7fa; /* Light, inviting link color */
-            font-size: 1.1rem; /* Slightly larger font size */
-            text-decoration: none;
-            padding: 12px 20px; /* Adjusted padding */
-            background-color: #3f51b5; /* More vibrant button color */
-            border: 1px solid #5c6bc0; /* Lighter border */
-            border-radius: 6px; /* Rounded corners for buttons */
-            text-align: center;
-            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out; 
-        }
-
-        .nav-container a:hover {
-            background-color: #5e35b1; /* Darker hover color */
-            transform: scale(1.05); /* Slight scale on hover */
-        }
-
-        .image-container {
-            margin-bottom: 2rem; /* Space below the image */
-            border-radius: 8px; /* Rounded corners for the image */
-            overflow: hidden; /* Ensures rounded corners are visible */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-        }
-
-        .image-container img {
-            display: block; /* Prevents extra space below the image */
-            max-width: 100%; /* Ensures image doesn't overflow */
-            height: auto;
-        }
-
-        @media (max-width: 600px) {
-            body {
-                padding: 1rem; /* Adjust padding for smaller screens */
-            }
-
-            .nav-container {
-                padding: 1rem;
-                gap: 10px;
-                margin-bottom: 1.5rem;
-            }
-
-            .nav-container a {
-                font-size: 1rem;
-                padding: 10px 15px;
-            }
-
-            .image-container {
-                margin-bottom: 1.5rem;
-            }
-        }
-    </style>
+  </style>
 </head>
 <body>
 
-    <div class="nav-container">
-        <a href="10game.html">NFL Guess Who!</a>
-        <a href="TCWRMEMORY.html">TWCR Memory</a>
+  <div class="header">
+    <div class="logo-container">
+      <img src="DYNASTYLOGO.jpeg" alt="logo">
+    </div>
+    <div class="header-text">
+      <p class="title">TCWR Dy-NASTY League</p>
+      <p class="subtitle">Members</p>
+    </div>
+  </div>
+
+  <div class="column-container"> <!-- OPEN container -->
+
+    <div class="column-left">
+      <div class="champ">
+        <div class="champ-content">
+          <img src="Brody.JPG" alt="Brody">
+          <p>Commissioner<br/>
+	     Steven Vargas</p>
+        </div>
+      </div>
+
+      <div class="champ">
+ <div class="champ-content">
+          <img src="kitty.jpg" alt="kitty">
+        <p>Evelyn Gregory</p>
+      </div>
+</div>
+
+      <div class="champ">
+        <div class="champ-content">
+          <img src="Raja.png" alt="Raja">
+          <p>Matt Gregory</p>
+        </div>
+      </div>
+
+      <div class="champ">
+        <div class="champ-content">
+          <img src="zeusc.jpg" alt="ZeusC">
+          <p>Trevor Guidinger</p>
+        </div>
+      </div>
+
+      <div class="champ">
+        <p>An Nguyen</p>
+      </div>
     </div>
 
-    <div class="image-container">
-        <img src="Kenny2.jpg" alt="Kenny" style="width: 500px; height: auto;">
+    <div class="column-center">
+      <div class="champ">
+        <div class="champ-content">
+          <img src="ziggy.jpg" alt="Ziggy">
+          <p>Bonnie Glover</p>
+        </div>
+      </div>
+
+      <div class="champ">
+        <div class="champ-content">
+          <img src="goober.JPG" alt="Goober">
+          <p>Emily McCormack</p>
+        </div>
+      </div>
+
+      <div class="champ">
+  <div class="champ-content">
+          <img src="Alex.JPG" alt="Alex">
+        <p>Jessica Sims</p>
+      </div>
+	</div>
+
+      <div class="champ">
+        <div class="champ-content">
+          <img src="zeus.jpg" alt="Zeus">
+          <p>Sylvester Martinez</p>
+        </div>
+      </div>
+
+      <div class="champ">
+        <p>Nate Meier</p>
+      </div>
     </div>
+
+    <div class="column-right">
+      
+<div class="champ">
+ <div class="champ-content">
+          <img src="Rayn.jpg" alt="Ryan">
+        <p>Brittany Canfield</p>
+      </div>
+</div>
+
+      <div class="champ">
+        <div class="champ-content">
+          <img src="Missy.jpg" alt="Missy">
+          <p>Brian Hollingsworth</p>
+        </div>
+      </div>
+
+      <div class="champ">
+        <p>Brad SoRelle</p>
+      </div>
+
+      <div class="champ">
+        <p>Dianne Mohr</p>
+      </div>
+    </div>
+
+    <div class="column-retired">
+      <div class="top-section">
+        <img src="thehomies.jpeg" alt="Fallen Comrades Image" />
+      </div>
+
+      <div class="champ">
+        <div class="retired-stamp">RETIRED</div>
+        <p>Alex Hauenstein<br />0 Season</p>
+        <p>"He checked out before the drama!"</p>
+      </div>
+
+      <div class="champ">
+        <div class="retired-stamp">RETIRED</div>
+        <p>Kurt Carney<br />1 Season<br />6-8</p>
+        <p>"He was part of the draft and then he went missing!"</p>
+      </div>
+
+      <div class="champ">
+        <div class="retired-stamp">RETIRED</div>
+        <p>Matt Sellers<br />2 Seasons<br />10-18</p>
+        <p>"The other Matt"</p>
+      </div>
+    </div>
+
+  </div> <!-- CLOSE container -->
 
 </body>
 </html>
