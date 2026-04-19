@@ -455,17 +455,17 @@
         const data = doc.data();
         const loadingDiv = document.getElementById("loading-message");
         
-      loadingDiv.innerHTML = `
-  <div style="color: #FFD700; font-weight: bold; margin-top: 5px; line-height: 1.3; text-align: center; font-size: 0.85rem;">
-    <div style="font-size: 1.1rem; margin-bottom: 2px;">Rank: ${data.rank}</div>
-    Score: ${data.totalScore} <br>
+     loadingDiv.innerHTML = `
+  <div style="color: #FFD700; font-weight: bold; margin-top: 5px; line-height: 1.4; text-align: center; font-size: 0.85rem;">
+    Rank: ${data.rank} <br>
+    Score: ${data['total score']} <br>
     
-    <hr style="border: 0; border-top: 1px solid rgba(255, 215, 0, 0.3); margin: 4px auto; width: 80%;">
+    <hr style="border: 0; border-top: 1px solid rgba(255, 215, 0, 0.3); margin: 6px auto; width: 80%;">
     
-    Record: ${data.careerRecord} (${data.winPct}) <br>
-    Total Points: ${data.totalPointsFor} <br>
+    Record: ${data['career Record']} (${data.winPct}) <br>
+    Total Points: ${data['totalpoints for']} <br>
     Avg PPG: ${data.careerAvg} <br>
-    Playoffs: ${data.playoffAppearances} | Rings: ${data.championships}
+    Playoffs: ${data.PLayoffAppearances} | Rings: ${data.Championships}
   </div>
 `;
 
