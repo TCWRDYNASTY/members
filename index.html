@@ -243,164 +243,238 @@
                 padding: 5px;
             }
         }
+
+/* 1. Hide the stats box by default */
+.stats-overlay {
+    display: none; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30, 49, 89, 0.95); /* Matches your body color but darker */
+    border-radius: 3rem; /* Matches your card curve */
+    z-index: 20;
+    padding: 20px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #FFD700; /* Gold border for a "pro" look */
+}
+
+/* 2. Show the stats box when hovering over the .champ card */
+.champ:hover .stats-overlay {
+    display: flex; /* Makes it visible and centers the text */
+}
+
+/* 3. Style the "Loading" or "Stats" text inside */
+#loading-message, #stats-content {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #e2e8f0;
+}
     </style>
 </head>
 
 <body>
 
-  <div class="header">
+ <div class="header">
     <div class="logo-container">
-      <img src="DYNASTYLOGO.jpeg" alt="logo">
+        <img src="DYNASTYLOGO.jpeg" alt="logo">
     </div>
     <div class="header-text">
-      <p class="title">TCWR Dy-NASTY League</p>
-      <p class="subtitle">Members</p>
+        <p class="title">TCWR Dy-NASTY League</p>
+        <p class="subtitle">Members</p>
     </div>
-  </div>
+</div>
 
-  <div class="column-container"> <!-- OPEN container -->
+<div class="column-container">
 
     <div class="column-left">
-      <div class="champ">
-        <div class="champ-content">
-          <img src="Brody.JPG" alt="Brody">
-          <p>Steven Vargas <br/> 
-	     "drvargas"</p>
+        <div class="champ" onmouseenter="showStats('AnNguyen')">
+            <div class="champ-content">
+                <img src="brody2.JPG" alt="brody2">
+                <p>An Nguyen<br/>"TB12isDaddy"</p>
+            </div>
+            <div id="stats-popup" class="stats-overlay">
+                <div id="loading-message">Loading Stats...</div>
+                <div id="stats-content" style="display:none;">
+                    <h3 id="manager-name"></h3>
+                    <div id="h2h-table-container"></div>
+                    <div id="manager-logic-container"></div>
+                </div>
+            </div>
         </div>
-      </div>
 
-      <div class="champ">
- <div class="champ-content">
-          <img src="kitty.jpg" alt="kitty">
-        <p>Evelyn Gregory<br/>
-           "BUNNIESUPBUDDY"</p>
-      </div>
-</div>
-
-      <div class="champ">
-        <div class="champ-content">
-          <img src="Raja.png" alt="Raja">
-          <p>Matt Gregory<br/>
-           "mgreg00x"</p>
+        <div class="champ">
+            <div class="champ-content">
+                <img src="Brody.JPG" alt="Brody">
+                <p>Steven Vargas <br/>"drvargas"</p>
+            </div>
         </div>
-      </div>
 
-      <div class="champ">
-        <div class="champ-content">
-          <img src="zeusc.jpg" alt="ZeusC">
-          <p>Trevor Guidinger<br/>
-             "dudenamedtrevor"</p>
+        <div class="champ">
+            <div class="champ-content">
+                <img src="kitty.jpg" alt="kitty">
+                <p>Evelyn Gregory<br/>"BUNNIESUPBUDDY"</p>
+            </div>
         </div>
-      </div>
 
-      <div class="champ">
-       <div class="champ-content">
-       <img src="brody2.JPG" alt="brody2">
-        <p>An Nguyen<br/>
-         "TB12isDaddy"</p>
-      </div>
+        <div class="champ">
+            <div class="champ-content">
+                <img src="Raja.png" alt="Raja">
+                <p>Matt Gregory<br/>"mgreg00x"</p>
+            </div>
+        </div>
+
+        <div class="champ">
+            <div class="champ-content">
+                <img src="zeusc.jpg" alt="ZeusC">
+                <p>Trevor Guidinger<br/>"dudenamedtrevor"</p>
+            </div>
+        </div>
     </div>
-</div>
 
     <div class="column-center">
-      <div class="champ">
-        <div class="champ-content">
-          <img src="ziggy.jpg" alt="Ziggy">
-          <p>Bonnie Glover<br/>
-           "lightmyBONfire"</p>
+        <div class="champ">
+            <div class="champ-content">
+                <img src="ziggy.jpg" alt="Ziggy">
+                <p>Bonnie Glover<br/>"lightmyBONfire"</p>
+            </div>
         </div>
-      </div>
 
-      <div class="champ">
-        <div class="champ-content">
-          <img src="goober.JPG" alt="Goober">
-          <p>Emily McCormack<br/>
-             "EmMack"</p>
+        <div class="champ">
+            <div class="champ-content">
+                <img src="goober.JPG" alt="Goober">
+                <p>Emily McCormack<br/>"EmMack"</p>
+            </div>
         </div>
-      </div>
 
-      <div class="champ">
-  <div class="champ-content">
-          <img src="Alex.JPG" alt="Alex">
-        <p>Jessica Sims<br/>
-            "CrazyCougars"</p>
-      </div>
-	</div>
-
-      <div class="champ">
-        <div class="champ-content">
-          <img src="zeus.jpg" alt="Zeus">
-          <p>Sylvester Martinez<br/>
-              "SanDiefoSuperBurgers"</p>
+        <div class="champ">
+            <div class="champ-content">
+                <img src="Alex.JPG" alt="Alex">
+                <p>Jessica Sims<br/>"CrazyCougars"</p>
+            </div>
         </div>
-      </div>
 
-      <div class="champ">
-   <div class="champ-content">
-          <img src="zesusT2.jpeg" alt="zeusT">
-        <p>Nate Meier<br/>
-           "Waddlepenguin"</p>
-      </div>
+        <div class="champ">
+            <div class="champ-content">
+                <img src="zeus.jpg" alt="Zeus">
+                <p>Sylvester Martinez<br/>"SanDiefoSuperBurgers"</p>
+            </div>
+        </div>
+
+        <div class="champ">
+            <div class="champ-content">
+                <img src="zesusT2.jpeg" alt="zeusT">
+                <p>Nate Meier<br/>"Waddlepenguin"</p>
+            </div>
+        </div>
     </div>
-</div>
+
     <div class="column-right">
-      
-<div class="champ">
- <div class="champ-content">
-          <img src="Rayn.jpg" alt="Ryan">
-        <p>Brittany Canfield<br/>
-            "bcanfield0913"</p>
-      </div>
-</div>
-
-      <div class="champ">
-        <div class="champ-content">
-          <img src="Missy.jpg" alt="Missy">
-          <p>Brian Hollingsworth<br/>
-              "DawgPound247"</p>
+        <div class="champ">
+            <div class="champ-content">
+                <img src="Rayn.jpg" alt="Ryan">
+                <p>Brittany Canfield<br/>"bcanfield0913"</p>
+            </div>
         </div>
-      </div>
 
-      <div class="champ">
-   <div class="champ-content">
-          <img src="kitty2.JPG" alt="kitty2">
-        <p>Brad SoRelle<br/>
-            "LycaonPictus"</p>
-      </div>
-</div>
+        <div class="champ">
+            <div class="champ-content">
+                <img src="Missy.jpg" alt="Missy">
+                <p>Brian Hollingsworth<br/>"DawgPound247"</p>
+            </div>
+        </div>
 
+        <div class="champ">
+            <div class="champ-content">
+                <img src="kitty2.JPG" alt="kitty2">
+                <p>Brad SoRelle<br/>"LycaonPictus"</p>
+            </div>
+        </div>
 
-      <div class="champ">
-   <div class="champ-content">
-          <img src="noah.jpg" alt="noah">
-        <p>Dianne Mohr<br/>
-            "dianne399"</p>
-      </div>
+        <div class="champ">
+            <div class="champ-content">
+                <img src="noah.jpg" alt="noah">
+                <p>Dianne Mohr<br/>"dianne399"</p>
+            </div>
+        </div>
     </div>
-</div>
-
 
     <div class="column-retired">
-      <div class="champ">
-        <div class="retired-stamp">RETIRED</div>
-        <p>Alex Hauenstein<br />0 Season</p>
-        <p>"He checked out before the drama!"</p>
-      </div>
+        <div class="champ">
+            <div class="retired-stamp">RETIRED</div>
+            <p>Alex Hauenstein<br />0 Season</p>
+            <p>"He checked out before the drama!"</p>
+        </div>
 
-      <div class="champ">
-        <div class="retired-stamp">RETIRED</div>
-        <p>Kurt Carney<br />1 Season<br />6-8</p>
-        <p>"He was part of the draft and then he went missing!"</p>
-      </div>
+        <div class="champ">
+            <div class="retired-stamp">RETIRED</div>
+            <p>Kurt Carney<br />1 Season<br />6-8</p>
+            <p>"He was part of the draft and then he went missing!"</p>
+        </div>
 
-      <div class="champ">
-        <div class="retired-stamp">RETIRED</div>
-        <p>Matt Sellers<br />2 Seasons<br />10-18</p>
-        <p>"The other Matt"</p>
-      </div>
+        <div class="champ">
+            <div class="retired-stamp">RETIRED</div>
+            <p>Matt Sellers<br />2 Seasons<br />10-18</p>
+            <p>"The other Matt"</p>
+        </div>
     </div>
 
-  </div> <!-- CLOSE container -->
-  
+</div>
+
+ <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+<script>
+  // 2. Setup Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyCZYJeAJjeiaUoV2s1NBjGXVYOJtixh-qk",
+    authDomain: "tcwr-dynasty.firebaseapp.com",
+    projectId: "tcwr-dynasty",
+    storageBucket: "tcwr-dynasty.firebasestorage.app",
+    messagingSenderId: "544187199777",
+    appId: "1:544187199777:web:05753208f1daee32558e60"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+  console.log("🚀 Firebase is connected!");
+
+  // 3. The "Mailman" function that fetches data when you hover
+  async function showStats(managerId) {
+    console.log("Hovering over:", managerId);
+    
+    try {
+      // Look for the specific folder in your 'managers' collection
+      const docRef = db.collection("managers").doc(managerId);
+      const doc = await docRef.get();
+
+      if (doc.exists) {
+        const data = doc.data();
+        
+        // Find the loading message and replace it with real data
+        const loadingDiv = document.getElementById("loading-message");
+        
+        // This updates the text inside An's card
+        loadingDiv.innerHTML = `
+          <div style="color: #FFD700; font-weight: bold; margin-top: 10px;">
+            Score: ${data.totalScore} <br>
+            Trend: ${data.trend} <br>
+            Tier: ${data.managerTier}
+          </div>
+        `;
+        
+        console.log("🔥 Data successfully loaded for:", managerId);
+      } else {
+        console.log("❌ No such manager found in database!");
+      }
+    } catch (error) {
+      console.error("❌ Error getting stats:", error);
+    }
+  }
+</script>
+
 </body>
 </html>
