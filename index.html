@@ -115,10 +115,11 @@ body {
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.95);
     z-index: 10000;
-    padding: 20px;
+    padding: 40px 20px;
     overflow-y: auto;
     display: flex;
     justify-content: center;
+    align-items: flex-start; /* Added: Ensures long content doesn't get cut off at the top */
     box-sizing: border-box;
 }
 
@@ -131,9 +132,10 @@ body {
     border: 3px solid #FFD700;
     border-radius: 15px;
     padding: 40px 25px;
-    margin: auto;
+    margin: 0 auto; /* Removed 'auto' vertical margin to prevent collapsing */
     position: relative;
     box-sizing: border-box;
+    min-height: min-content; /* Added: Forces box to respect its internal height */
 }
 
 .close-btn {
@@ -163,9 +165,9 @@ body {
 
 /* --- UPDATED TO REMOVE SCROLL --- */
 .h2h-scroll { 
-    height: auto;         
-    max-height: none;       
-    overflow-y: visible;    
+    height: auto;          
+    max-height: none;        
+    overflow-y: visible;     
     width: 100%; 
 }
 table { width: 100%; border-collapse: collapse; }
