@@ -7,7 +7,6 @@
     <link rel="manifest" href="manifest.json">
 
 <style>
-/* --- BASE RESET --- */
 html { box-sizing: border-box; }
 *, *:before, *:after { box-sizing: inherit; }
 
@@ -22,7 +21,6 @@ body {
     flex-direction: column;
 }
 
-/* --- HEADER --- */
 .header {
     width: 100%;
     display: flex;
@@ -44,7 +42,6 @@ body {
 .header .title { font-size: clamp(1.5rem, 5vw, 2.8rem); font-weight: 800; text-transform: uppercase; }
 .header .subtitle { font-size: clamp(1.2rem, 3vw, 2rem); letter-spacing: 2px; }
 
-/* --- MANAGER CARDS --- */
 .champ {
     background-color: #2d3748;
     text-align: center;
@@ -86,7 +83,6 @@ body {
 .real-name { font-size: 1.2rem; font-weight: 700; color: white; }
 .login-name { font-size: 0.9rem; color: #cbd5e0; font-style: italic; margin-top: 2px; }
 
-/* --- RETIRED STAMP --- */
 .retired-stamp {
     position: absolute;
     top: 50%;
@@ -102,11 +98,9 @@ body {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* --- LAYOUT --- */
 .column-container { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
 .column-left, .column-center, .column-right, .column-retired { flex: 1 1 300px; padding: 10px; display: flex; flex-direction: column; }
 
-/* --- OVERLAY --- */
 #full-page-overlay {
     position: fixed;
     top: 0;
@@ -119,12 +113,11 @@ body {
     overflow-y: auto;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Added: Ensures long content doesn't get cut off at the top */
+    align-items: flex-start;
     box-sizing: border-box;
 }
 
 .overlay-hidden { display: none !important; }
-
 .overlay-content {
     width: 100%;
     max-width: 1200px;
@@ -132,12 +125,11 @@ body {
     border: 3px solid #FFD700;
     border-radius: 15px;
     padding: 40px 25px;
-    margin: 0 auto; /* Removed 'auto' vertical margin to prevent collapsing */
+    margin: 0 auto;
     position: relative;
     box-sizing: border-box;
-    min-height: min-content; /* Added: Forces box to respect its internal height */
+    min-height: min-content;
 }
-
 .close-btn {
     position: absolute;
     top: 10px;
@@ -147,7 +139,6 @@ body {
     cursor: pointer;
     z-index: 10001;
 }
-
 .dossier-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -163,7 +154,6 @@ body {
     border: 1px solid #444;
 }
 
-/* --- UPDATED TO REMOVE SCROLL --- */
 .h2h-scroll { 
     height: auto;          
     max-height: none;        
@@ -200,7 +190,7 @@ td:first-child, th:first-child {
 
 <div class="column-container">
     <div class="column-left">
-        <div class="champ" id="AnNguyen" onclick="openOverlay('An')">
+        <div class="champ" id="AnNguyen" onclick="openOverlay('AnNguyen')">
             <div class="champ-content">
                 <img src="brody2.JPG" alt="An">
                 <div class="manager-names">
@@ -246,7 +236,6 @@ window.onload = function() {
 
     firebase.initializeApp(firebaseConfig);
     db = firebase.firestore();
-    // This will now show in your Dev Tools to confirm connection
     console.log("Firebase Initialized Successfully"); 
 };
 
@@ -264,12 +253,11 @@ async function openOverlay(managerId) {
         </div>`;
 
     try {
+        console.log("Attempting to fetch document with ID:", managerId);
         const doc = await db.collection("managers").doc(managerId).get();
         if (doc.exists) {
             const d = doc.data(); 
             const displayName = d.memberId || managerId; 
-
-            // SUCCESS LOG: You will see this in Dev Tools when data arrives
             console.log("Data retrieved for:", managerId, d);
 
             target.innerHTML = `
