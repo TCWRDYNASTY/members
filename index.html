@@ -227,6 +227,91 @@ body {
         margin-bottom: 15px;
     }
 }
+
+/* --- FULL PAGE OVERLAY STYLES --- */
+
+#full-page-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 20, 30, 0.98); /* Deep dark blue/black */
+    z-index: 10000; /* Stays on top of everything */
+    padding: 40px;
+    overflow-y: auto; /* Allows scrolling if tables are long */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    transition: opacity 0.3s ease;
+}
+
+.overlay-hidden {
+    display: none !important;
+    opacity: 0;
+}
+
+.overlay-content {
+    width: 100%;
+    max-width: 1000px; /* Big enough for side-by-side tables */
+    background: #1a202c;
+    border: 3px solid #FFD700; /* Gold border for prestige */
+    border-radius: 20px;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 45px;
+    color: #FFD700;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.close-btn:hover {
+    color: white;
+}
+
+/* Dossier Header Area */
+.dossier-header {
+    text-align: center;
+    border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+}
+
+/* Table Styling for the Dossier */
+.table-box table {
+    width: 100%;
+    margin-top: 10px;
+    color: white;
+    font-family: 'Inter', sans-serif;
+}
+
+.table-box th {
+    text-align: left;
+    padding: 10px;
+    background-color: rgba(255, 215, 0, 0.1);
+    color: #FFD700;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+}
+
+.table-box td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.current-rank, .points, .last-year-rank {
+    line-height: 1.2;
+    margin: 2px 0;
+}
+
 </style>
 
 </head>
@@ -244,117 +329,190 @@ body {
 </div>
 
 <div class="column-container">
-
     <div class="column-left">
-    <div class="champ" onmouseenter="showStats('AnNguyen')">
-        
-        <div class="champ-content">
-            <img src="brody2.JPG" alt="An Nguyen">
-            <div class="manager-names">
-                <span class="real-name">An Nguyen</span>
-                <span class="login-name">"TB12isDaddy"</span>
+        <div class="champ" id="AnNguyen" onclick="openOverlay('AnNguyen')">
+            <div class="champ-content">
+                <img src="brody2.JPG" alt="An Nguyen">
+                <div class="manager-names">
+                    <span class="real-name">An Nguyen</span>
+                    <span class="login-name">"TB12isDaddy"</span>
+                    <div class="current-rank">Rank: --</div>
+                    <div class="points">-- pts</div>
+                    <div class="last-year-rank">2025: --</div>
+                </div>
             </div>
         </div>
 
-        <div id="stats-popup" class="stats-overlay">
-            <div id="loading-message">Loading Stats...</div>
-        </div>
-        
-    </div>
-</div>
-
-        <div class="champ">
+        <div class="champ" id="drvargas" onclick="openOverlay('drvargas')">
             <div class="champ-content">
                 <img src="Brody.JPG" alt="Brody">
-                <p>Steven Vargas <br/>"drvargas"</p>
+                <div class="manager-names">
+                    <span class="real-name">Steven Vargas</span>
+                    <span class="login-name">"drvargas"</span>
+                    <div class="current-rank">Rank: --</div>
+                    <div class="points">-- pts</div>
+                    <div class="last-year-rank">2025: --</div>
+                </div>
             </div>
         </div>
 
-        <div class="champ">
+        <div class="champ" id="BUNNIESUPBUDDY" onclick="openOverlay('BUNNIESUPBUDDY')">
             <div class="champ-content">
-                <img src="kitty.jpg" alt="kitty">
-                <p>Evelyn Gregory<br/>"BUNNIESUPBUDDY"</p>
+                <img src="kitty.jpg" alt="Evelyn">
+                <div class="manager-names">
+                    <span class="real-name">Evelyn Gregory</span>
+                    <span class="login-name">"BUNNIESUPBUDDY"</span>
+                    <div class="current-rank">Rank: --</div>
+                    <div class="points">-- pts</div>
+                    <div class="last-year-rank">2025: --</div>
+                </div>
             </div>
         </div>
 
-        <div class="champ">
+        <div class="champ" id="mgreg00x" onclick="openOverlay('mgreg00x')">
             <div class="champ-content">
-                <img src="Raja.png" alt="Raja">
-                <p>Matt Gregory<br/>"mgreg00x"</p>
+                <img src="Raja.png" alt="Matt">
+                <div class="manager-names">
+                    <span class="real-name">Matt Gregory</span>
+                    <span class="login-name">"mgreg00x"</span>
+                    <div class="current-rank">Rank: --</div>
+                    <div class="points">-- pts</div>
+                    <div class="last-year-rank">2025: --</div>
+                </div>
             </div>
         </div>
 
-        <div class="champ">
+        <div class="champ" id="dudenamedtrevor" onclick="openOverlay('dudenamedtrevor')">
             <div class="champ-content">
-                <img src="zeusc.jpg" alt="ZeusC">
-                <p>Trevor Guidinger<br/>"dudenamedtrevor"</p>
+                <img src="zeusc.jpg" alt="Trevor">
+                <div class="manager-names">
+                    <span class="real-name">Trevor Guidinger</span>
+                    <span class="login-name">"dudenamedtrevor"</span>
+                    <div class="current-rank">Rank: --</div>
+                    <div class="points">-- pts</div>
+                    <div class="last-year-rank">2025: --</div>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="column-center">
-        <div class="champ">
+        <div class="champ" id="lightmyBONfire" onclick="openOverlay('lightmyBONfire')">
             <div class="champ-content">
-                <img src="ziggy.jpg" alt="Ziggy">
-                <p>Bonnie Glover<br/>"lightmyBONfire"</p>
+                <img src="ziggy.jpg" alt="Bonnie">
+                <div class="manager-names">
+                    <span class="real-name">Bonnie Glover</span>
+                    <span class="login-name">"lightmyBONfire"</span>
+                    <div class="current-rank">Rank: --</div>
+                    <div class="points">-- pts</div>
+                    <div class="last-year-rank">2025: --</div>
+                </div>
             </div>
         </div>
 
-        <div class="champ">
+        <div class="champ" id="EmMack" onclick="openOverlay('EmMack')">
             <div class="champ-content">
-                <img src="goober.JPG" alt="Goober">
-                <p>Emily McCormack<br/>"EmMack"</p>
+                <img src="goober.JPG" alt="Emily">
+                <div class="manager-names">
+                    <span class="real-name">Emily McCormack</span>
+                    <span class="login-name">"EmMack"</span>
+                    <div class="current-rank">Rank: --</div>
+                    <div class="points">-- pts</div>
+                    <div class="last-year-rank">2025: --</div>
+                </div>
             </div>
         </div>
 
-        <div class="champ">
+        <div class="champ" id="CrazyCougars" onclick="openOverlay('CrazyCougars')">
             <div class="champ-content">
-                <img src="Alex.JPG" alt="Alex">
-                <p>Jessica Sims<br/>"CrazyCougars"</p>
+                <img src="Alex.JPG" alt="Jessica">
+                <div class="manager-names">
+                    <span class="real-name">Jessica Sims</span>
+                    <span class="login-name">"CrazyCougars"</span>
+                    <div class="current-rank">Rank: --</div>
+                    <div class="points">-- pts</div>
+                    <div class="last-year-rank">2025: --</div>
+                </div>
             </div>
         </div>
 
-        <div class="champ">
+        <div class="champ" id="SanDiegoSuperBurgers" onclick="openOverlay('SanDiegoSuperBurgers')">
             <div class="champ-content">
-                <img src="zeus.jpg" alt="Zeus">
-                <p>Sylvester Martinez<br/>"SanDiefoSuperBurgers"</p>
+                <img src="zeus.jpg" alt="Sylvester">
+                <div class="manager-names">
+                    <span class="real-name">Sylvester Martinez</span>
+                    <span class="login-name">"SanDiegoSuperBurgers"</span>
+                    <div class="current-rank">Rank: --</div>
+                    <div class="points">-- pts</div>
+                    <div class="last-year-rank">2025: --</div>
+                </div>
             </div>
         </div>
 
-        <div class="champ">
+        <div class="champ" id="Waddlepenguin" onclick="openOverlay('Waddlepenguin')">
             <div class="champ-content">
-                <img src="zesusT2.jpeg" alt="zeusT">
-                <p>Nate Meier<br/>"Waddlepenguin"</p>
+                <img src="zesusT2.jpeg" alt="Nate">
+                <div class="manager-names">
+                    <span class="real-name">Nate Meier</span>
+                    <span class="login-name">"Waddlepenguin"</span>
+                    <div class="current-rank">Rank: --</div>
+                    <div class="points">-- pts</div>
+                    <div class="last-year-rank">2025: --</div>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="column-right">
-        <div class="champ">
+        <div class="champ" id="bcanfield0913" onclick="openOverlay('bcanfield0913')">
             <div class="champ-content">
-                <img src="Rayn.jpg" alt="Ryan">
-                <p>Brittany Canfield<br/>"bcanfield0913"</p>
+                <img src="Rayn.jpg" alt="Brittany">
+                <div class="manager-names">
+                    <span class="real-name">Brittany Canfield</span>
+                    <span class="login-name">"bcanfield0913"</span>
+                    <div class="current-rank">Rank: --</div>
+                    <div class="points">-- pts</div>
+                    <div class="last-year-rank">2025: --</div>
+                </div>
             </div>
         </div>
 
-        <div class="champ">
+        <div class="champ" id="DawgPound247" onclick="openOverlay('DawgPound247')">
             <div class="champ-content">
-                <img src="Missy.jpg" alt="Missy">
-                <p>Brian Hollingsworth<br/>"DawgPound247"</p>
+                <img src="Missy.jpg" alt="Brian">
+                <div class="manager-names">
+                    <span class="real-name">Brian Hollingsworth</span>
+                    <span class="login-name">"DawgPound247"</span>
+                    <div class="current-rank">Rank: --</div>
+                    <div class="points">-- pts</div>
+                    <div class="last-year-rank">2025: --</div>
+                </div>
             </div>
         </div>
 
-        <div class="champ">
+        <div class="champ" id="LycaonPictus" onclick="openOverlay('LycaonPictus')">
             <div class="champ-content">
-                <img src="kitty2.JPG" alt="kitty2">
-                <p>Brad SoRelle<br/>"LycaonPictus"</p>
+                <img src="kitty2.JPG" alt="Brad">
+                <div class="manager-names">
+                    <span class="real-name">Brad SoRelle</span>
+                    <span class="login-name">"LycaonPictus"</span>
+                    <div class="current-rank">Rank: --</div>
+                    <div class="points">-- pts</div>
+                    <div class="last-year-rank">2025: --</div>
+                </div>
             </div>
         </div>
 
-        <div class="champ">
+        <div class="champ" id="dianne399" onclick="openOverlay('dianne399')">
             <div class="champ-content">
-                <img src="noah.jpg" alt="noah">
-                <p>Dianne Mohr<br/>"dianne399"</p>
+                <img src="noah.jpg" alt="Dianne">
+                <div class="manager-names">
+                    <span class="real-name">Dianne Mohr</span>
+                    <span class="login-name">"dianne399"</span>
+                    <div class="current-rank">Rank: --</div>
+                    <div class="points">-- pts</div>
+                    <div class="last-year-rank">2025: --</div>
+                </div>
             </div>
         </div>
     </div>
@@ -365,76 +523,116 @@ body {
             <p>Alex Hauenstein<br />0 Season</p>
             <p>"He checked out before the drama!"</p>
         </div>
-
         <div class="champ">
             <div class="retired-stamp">RETIRED</div>
             <p>Kurt Carney<br />1 Season<br />6-8</p>
             <p>"He was part of the draft and then he went missing!"</p>
         </div>
-
         <div class="champ">
             <div class="retired-stamp">RETIRED</div>
             <p>Matt Sellers<br />2 Seasons<br />10-18</p>
             <p>"The other Matt"</p>
         </div>
     </div>
-
 </div>
 
- <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+<div id="full-page-overlay" class="overlay-hidden">
+    <div class="overlay-content">
+        <span class="close-btn" onclick="closeOverlay()">&times;</span>
+        <div id="dossier-target">
+            </div>
+    </div>
+</div>
 
 <script>
-  // 2. Setup Firebase
-  const firebaseConfig = {
+const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQjIjcUVkLUwsSErcmBR-WHYSu6WxbAlckp2oZOGkDQFoqea7El8QLa2shDlyrUPSAXZtv89DzcMcvk/pub?gid=1130418004&single=true&output=csv";
+
+// 1. SYNC GOOGLE SHEETS TO CARDS
+async function updateLeaderboard() {
+    try {
+        const response = await fetch(sheetUrl);
+        const data = await response.text();
+        const rows = data.split('\n').slice(1);
+
+        rows.forEach(row => {
+            const [rank, name, points, lastYear] = row.split(',');
+            if (!name) return;
+            const managerCard = document.getElementById(name.trim());
+            if (managerCard) {
+                managerCard.querySelector('.current-rank').innerText = `#${rank}`;
+                managerCard.querySelector('.points').innerText = `${points} pts`;
+                managerCard.querySelector('.last-year-rank').innerText = `2025: #${lastYear}`;
+            }
+        });
+    } catch (err) { console.error("Sheets Error:", err); }
+}
+updateLeaderboard();
+
+// 2. FIREBASE SETUP
+const firebaseConfig = {
     apiKey: "AIzaSyCZYJeAJjeiaUoV2s1NBjGXVYOJtixh-qk",
     authDomain: "tcwr-dynasty.firebaseapp.com",
     projectId: "tcwr-dynasty",
     storageBucket: "tcwr-dynasty.firebasestorage.app",
     messagingSenderId: "544187199777",
     appId: "1:544187199777:web:05753208f1daee32558e60"
-  };
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-  console.log("🚀 Firebase is connected!");
-
-  // 3. The "Mailman" function that fetches data when you hover
-  async function showStats(managerId) {
-    console.log("Hovering over:", managerId);
+// 3. FULL PAGE DOSSIER OVERLAY
+async function openOverlay(managerId) {
+    const overlay = document.getElementById('full-page-overlay');
+    const target = document.getElementById('dossier-target');
     
+    // Show overlay immediately with a loading state
+    overlay.classList.remove('overlay-hidden');
+    target.innerHTML = `<p style="text-align:center; color:#FFD700;">Gathering Intel on ${managerId}...</p>`;
+
     try {
-      // Look for the specific folder in your 'managers' collection
-      const docRef = db.collection("managers").doc(managerId);
-      const doc = await docRef.get();
+        const docRef = db.collection("managers").doc(managerId);
+        const doc = await docRef.get();
 
-      if (doc.exists) {
-        const data = doc.data();
-        const loadingDiv = document.getElementById("loading-message");
-        
-    loadingDiv.innerHTML = `
-  <div style="color: #FFD700; font-weight: bold; margin-top: 5px; line-height: 1.4; text-align: center; font-size: 0.85rem;">
-    Rank: ${data.rank} <br>
-    Score: ${data.totalScore} <br>
-    
-    <hr style="border: 0; border-top: 1px solid rgba(255, 215, 0, 0.3); margin: 6px auto; width: 80%;">
-    
-    Record: ${data.careerRecord} (${data.winPct}) <br>
-    Total Points: ${data.totalPointsFor} <br>
-    Avg PPG: ${data.carreerAvg} <br>
-    Playoffs: ${data.playoffAppearances} | Rings: ${data.championships}
-  </div>
-`;
+        if (doc.exists) {
+            const data = doc.data();
+            
+            // Build the Dossier Content
+            target.innerHTML = `
+                <div class="dossier-header">
+                    <h1 style="color:#FFD700; margin-bottom:5px;">${managerId}</h1>
+                    <p>Record: ${data.careerRecord} | Rings: ${data.championships} 🏆</p>
+                </div>
 
+                <div class="tables-container" style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
+                    
+                    <div class="table-box" style="flex: 1; min-width: 300px; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
+                        <h3 style="color:#FFD700;">Power Rankings</h3>
+                        <table style="width:100%; font-size: 0.8rem; border-collapse: collapse;">
+                            <tr style="border-bottom: 1px solid #FFD700;"><th>Manager</th><th>Score</th><th>Tier</th></tr>
+                            <tr><td>@SanDiegoSuperBurgers</td><td>126.03</td><td>Elite</td></tr>
+                            <tr><td>@bcanfield0913</td><td>125.38</td><td>Elite</td></tr>
+                            <tr><td>@mgreg00x</td><td>122.85</td><td>High</td></tr>
+                        </table>
+                    </div>
 
-        console.log("🔥 Data successfully loaded for:", managerId);
-      } else {
-        console.log("❌ No such manager found in database!");
-      }
-    } catch (error) {
-      console.error("❌ Error getting stats:", error);
-    }
-  }
+                    <div class="table-box" style="flex: 1; min-width: 300px; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
+                        <h3 style="color:#FFD700;">Head-to-Head History</h3>
+                        <table style="width:100%; font-size: 0.8rem; border-collapse: collapse;">
+                            <tr style="border-bottom: 1px solid #FFD700;"><th>Opponent</th><th>Record</th><th>Diff</th></tr>
+                            <tr><td>@EmMack</td><td>1-2</td><td>-77.16</td></tr>
+                            <tr><td>@drvargas</td><td>2-2</td><td>+1.92</td></tr>
+                        </table>
+                    </div>
+
+                </div>
+            `;
+        }
+    } catch (error) { console.error("Dossier Error:", error); }
+}
+
+function closeOverlay() {
+    document.getElementById('full-page-overlay').classList.add('overlay-hidden');
+}
 </script>
 
 </body>
