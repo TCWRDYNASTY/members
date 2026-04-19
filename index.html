@@ -161,10 +161,25 @@ body {
     border: 1px solid #444;
 }
 
-.h2h-scroll { max-height: 450px; overflow-y: auto; width: 100%; }
+/* --- UPDATED TO REMOVE SCROLL --- */
+.h2h-scroll { 
+    height: auto;         
+    max-height: none;       
+    overflow-y: visible;    
+    width: 100%; 
+}
 table { width: 100%; border-collapse: collapse; }
-th, td { padding: 8px 4px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); }
 
+th, td { 
+    padding: 10px 4px;   
+    text-align: center;  
+    border-bottom: 1px solid rgba(255,255,255,0.1); 
+}
+
+td:first-child, th:first-child { 
+    text-align: left; 
+    padding-left: 10px;
+}
 @media (max-width: 900px) {
     .dossier-grid { grid-template-columns: 1fr; }
 }
@@ -183,7 +198,7 @@ th, td { padding: 8px 4px; text-align: left; border-bottom: 1px solid rgba(255,2
 
 <div class="column-container">
     <div class="column-left">
-        <div class="champ" id="AnNguyen" onclick="openOverlay('AnNguyen')">
+        <div class="champ" id="AnNguyen" onclick="openOverlay('An')">
             <div class="champ-content">
                 <img src="brody2.JPG" alt="An Nguyen">
                 <div class="manager-names">
@@ -254,14 +269,13 @@ async function openOverlay(managerId) {
                         <div class="dossier-section">
                             <h3 style="color:#FFD700; margin-top:0; border-bottom:1px solid #FFD700; padding-bottom:5px;">Manager Stats</h3>
                             <div style="font-size: 0.9rem; line-height: 1.8; color:white;">
-                               // Example: If your Firestore uses snake_case, update to this:
-<p><strong>Rank:</strong> #${d.rank || 'N/A'}</p>
-<p><strong>Score:</strong> ${d.score || '0.00'}</p>
-<p><strong>Record:</strong> ${d.record || '0-0'}</p>
-<p><strong>Total Points:</strong> ${d.total_points || '0.00'}</p> 
-<p><strong>Avg PPG:</strong> ${d.avg_ppg || '0.00'}</p>
-<p><strong>Playoffs:</strong> ${d.playoffs || '0'}</p>
-<p><strong>Rings:</strong> ${d.rings || '0'} 🏆</p>
+                            <p><strong>Rank:</strong> #${d.rank || 'N/A'}</p>
+        <p><strong>Score:</strong> ${d.totalScore || '0.00'}</p>
+        <p><strong>Record:</strong> ${d.careerRecord || '0-0'} (${d.winPct || '0%'})</p>
+        <p><strong>Total Points:</strong> ${d.totalPointsFor || '0.00'}</p>
+        <p><strong>Avg PPG:</strong> ${d.carreerAvg || '0.00'}</p>
+        <p><strong>Playoffs:</strong> ${d.playoffAppearances || '0'}</p>
+        <p><strong>Rings:</strong> ${d.championships || '0'} 🏆</p>
                             </div>
                         </div>
 
