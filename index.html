@@ -477,16 +477,16 @@ body {
         <div id="dossier-target"></div>
     </div>
 </div>
- <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
 <script>
-// 1. GLOBAL VARIABLES (Initialized as null so they exist but aren't used too early)
+// 1. GLOBAL VARIABLES
 let db = null;
 const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQjIjcUVkLUwsSErcmBR-WHYSu6WxbAlckp2oZOGkDQFoqea7El8QLa2shDlyrUPSAXZtv89DzcMcvk/pub?gid=1130418004&single=true&output=csv";
 
-// 2. SETUP EVERYTHING ON LOAD
+// 2. INITIALIZE ON LOAD
 window.onload = function() {
-    // Initialize Firebase Setup
     const firebaseConfig = {
         apiKey: "AIzaSyCZYJeAJjeiaUoV2s1NBjGXVYOJtixh-qk",
         authDomain: "tcwr-dynasty.firebaseapp.com",
@@ -496,17 +496,14 @@ window.onload = function() {
         appId: "1:544187199777:web:05753208f1daee32558e60"
     };
 
-    // Check if firebase is loaded before trying to use it
     if (typeof firebase !== 'undefined') {
         firebase.initializeApp(firebaseConfig);
         db = firebase.firestore();
         console.log("🚀 Firebase connected successfully!");
+        updateLeaderboard();
     } else {
-        console.error("❌ Firebase script didn't load. Check your <script src> tags at the top of the file.");
+        console.error("❌ Firebase script didn't load.");
     }
-
-    // Load the Google Sheets data
-    updateLeaderboard();
 };
 
 // 3. SYNC GOOGLE SHEETS TO CARDS
@@ -517,18 +514,21 @@ async function updateLeaderboard() {
         const rows = data.split('\n').slice(1);
 
         rows.forEach(row => {
-            const [rank, name, points, lastYear] = row.split(',');
-            if (!name) return;
-            const managerCard = document.getElementById(name.trim());
-            if (managerCard) {
-                // Check if elements exist before setting text to avoid errors
-                const rankEl = managerCard.querySelector('.current-rank');
-                const ptsEl = managerCard.querySelector('.points');
-                const lastEl = managerCard.querySelector('.last-year-rank');
+            const cols = row.split(',');
+            if (cols.length < 2) return;
 
-                if (rankEl) rankEl.innerText = `#${rank}`;
-                if (ptsEl) ptsEl.innerText = `${points} pts`;
-                if (lastEl) lastEl.innerText = `2025: #${lastYear}`;
+            const [rank, rawName, points, lastYear] = cols.map(c => c.trim());
+            // Remove spaces to match HTML ID (e.g., "An Nguyen" -> "AnNguyen")
+            const elementId = rawName.replace(/\s+/g, ''); 
+            const managerCard = document.getElementById(elementId);
+
+            if (managerCard) {
+                const r = managerCard.querySelector('.current-rank');
+                const p = managerCard.querySelector('.points');
+                const l = managerCard.querySelector('.last-year-rank');
+                if (r) r.innerText = `Rank: ${rank}`;
+                if (p) p.innerText = `${points} pts`;
+                if (l) l.innerText = `2025: #${lastYear}`;
             }
         });
     } catch (err) { console.error("Sheets Error:", err); }
@@ -540,61 +540,101 @@ async function openOverlay(managerId) {
     const target = document.getElementById('dossier-target');
     
     overlay.classList.remove('overlay-hidden');
-    target.innerHTML = `<p style="text-align:center; color:#FFD700;">Gathering Intel on ${managerId}...</p>`;
+    target.innerHTML = `<p style="text-align:center; color:#FFD700; padding:40px;">Decrypting Dossier for ${managerId}...</p>`;
 
-    // Stop if DB isn't ready
     if (!db) {
-        target.innerHTML = `<p style="text-align:center; color:red;">Error: Firebase connection not established.</p>`;
+        target.innerHTML = `<p style="text-align:center; color:red;">Database Connection Offline.</p>`;
         return;
     }
 
     try {
-        const docRef = db.collection("managers").doc(managerId);
-        const doc = await docRef.get();
-
+        const doc = await db.collection("managers").doc(managerId).get();
         if (doc.exists) {
-            const data = doc.data();
+            const d = doc.data(); // Maps to fields like carreerAvg, winPct, totalPointsFor
             
             target.innerHTML = `
-                <div class="dossier-header" style="text-align:center;">
-                    <h1 style="color:#FFD700; margin-bottom:5px;">${managerId}</h1>
-                    <p>Record: ${data.careerRecord || '0-0'} | Rings: ${data.championships || '0'} 🏆</p>
+                <div style="text-align:center; border-bottom: 2px solid #FFD700; padding-bottom:15px; margin-bottom:20px;">
+                    <h1 style="color:#FFD700; margin:0; font-size: 2.5rem; text-transform: uppercase;">${managerId}</h1>
+                    <p style="color:rgba(255,215,0,0.7); font-weight:bold; margin-top:5px;">CLASSIFIED LEAGUE INTEL</p>
                 </div>
 
-                <div class="tables-container" style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
-                    <div class="table-box" style="flex: 1; min-width: 300px; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
-                        <h3 style="color:#FFD700;">Power Rankings</h3>
-                        <table style="width:100%; font-size: 0.8rem; border-collapse: collapse;">
-                            <tr style="border-bottom: 1px solid #FFD700;"><th>Manager</th><th>Score</th><th>Tier</th></tr>
-                            <tr><td>@SanDiegoSuperBurgers</td><td>126.03</td><td>Elite</td></tr>
-                            <tr><td>@bcanfield0913</td><td>125.38</td><td>Elite</td></tr>
-                            <tr><td>@mgreg00x</td><td>122.85</td><td>High</td></tr>
+                <div style="display: grid; grid-template-columns: 1fr 1.2fr 1.5fr; gap: 15px; align-items: start;">
+                    
+                    <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:8px; border: 1px solid #444;">
+                        <h3 style="color:#FFD700; margin-top:0; border-bottom:1px solid #FFD700; padding-bottom:5px;">Manager Stats</h3>
+                        <div style="font-size: 0.9rem; line-height: 1.8; color:white;">
+                            <p><strong>Rank:</strong> #${d.rank || '--'}</p>
+                            <p><strong>Score:</strong> ${d.totalScore || '--'}</p>
+                            <p><strong>Record:</strong> ${d.careerRecord} (${d.winPct})</p>
+                            <p><strong>Total Points:</strong> ${d.totalPointsFor}</p>
+                            <p><strong>Avg PPG:</strong> ${d.carreerAvg}</p>
+                            <p><strong>Playoffs:</strong> ${d.playoffAppearances}</p>
+                            <p><strong>Rings:</strong> ${d.championships} 🏆</p>
+                        </div>
+                    </div>
+
+                    <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:8px; border: 1px solid #444;">
+                        <h3 style="color:#FFD700; margin-top:0; border-bottom:1px solid #FFD700; padding-bottom:5px;">Matchup Intel</h3>
+                        <table style="width:100%; font-size: 0.75rem; border-collapse: collapse; color:white;">
+                            <tr style="text-align:left; color:gold; border-bottom:1px solid #555;">
+                                <th style="padding:5px;">Category</th><th style="padding:5px;">Manager</th>
+                            </tr>
+                            <tr style="border-bottom:1px solid #333;"><td style="padding:5px;"><b>The Brick Wall</b></td><td style="padding:5px;">@mgreg00x<br><span style="color:#4ade80">+66.12 Diff</span></td></tr>
+                            <tr style="border-bottom:1px solid #333;"><td style="padding:5px;"><b>Smoke & Mirrors</b></td><td style="padding:5px;">@bcanfield0913<br>3–1 (125.38 Avg)</td></tr>
+                            <tr style="border-bottom:1px solid #333;"><td style="padding:5px;"><b>The Cardiac Kid</b></td><td style="padding:5px;">@drvargas<br>2–2 (+1.92 Diff)</td></tr>
+                            <tr style="border-bottom:1px solid #333;"><td style="padding:5px;"><b>Murphy’s Law</b></td><td style="padding:5px;">@BUNNIESUPBUDDY<br>0–3 (111.41 Avg)</td></tr>
+                            <tr><td style="padding:5px;"><b>Reality Check</b></td><td style="padding:5px;">@SanDiegoSuperBurgers<br>126.03 Avg PF</td></tr>
                         </table>
                     </div>
 
-                    <div class="table-box" style="flex: 1; min-width: 300px; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
-                        <h3 style="color:#FFD700;">Head-to-Head History</h3>
-                        <table style="width:100%; font-size: 0.8rem; border-collapse: collapse;">
-                            <tr style="border-bottom: 1px solid #FFD700;"><th>Opponent</th><th>Record</th><th>Diff</th></tr>
-                            <tr><td>@EmMack</td><td>1-2</td><td>-77.16</td></tr>
-                            <tr><td>@drvargas</td><td>2-2</td><td>+1.92</td></tr>
-                        </table>
+                    <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:8px; border: 1px solid #444;">
+                        <h3 style="color:#FFD700; margin-top:0; border-bottom:1px solid #FFD700; padding-bottom:5px;">Head-to-Head History</h3>
+                        <div style="max-height: 400px; overflow-y: auto;">
+                            <table style="width:100%; font-size: 0.7rem; border-collapse: collapse; text-align: left; color:white;">
+                                <thead style="position: sticky; top: 0; background: #1a202c; color: gold;">
+                                    <tr><th style="padding:5px;">Opponent</th><th style="padding:5px;">Rec</th><th style="padding:5px;">Avg</th><th style="padding:5px;">Diff</th></tr>
+                                </thead>
+                                <tbody>
+                                    ${generateH2HRows()}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             `;
-        } else {
-            target.innerHTML = `<p style="text-align:center; color:#FFD700;">No database entry found for ${managerId}.</p>`;
         }
-    } catch (error) { 
-        console.error("Dossier Error:", error); 
-        target.innerHTML = `<p style="text-align:center; color:red;">Failed to load data. See console for details.</p>`;
-    }
+    } catch (e) { console.error(e); }
+}
+
+// Helper to generate the full H2H list
+function generateH2HRows() {
+    const data = [
+        ["@EmMack","1–2","233.02","77.67","-77.16"],
+        ["@bcanfield0913","3–1","501.52","125.38","+29.30"],
+        ["@drvargas","2–2","438.42","109.61","+1.92"],
+        ["@mgreg00x","3–1","491.40","122.85","+66.12"],
+        ["@DawgPound247","1–2","305.12","101.71","-14.26"],
+        ["@dudenamedtrevor","1–2","336.36","112.12","-73.34"],
+        ["@BUNNIESUPBUDDY","0–3","334.24","111.41","-125.24"],
+        ["@CrazyCougars","1–2","303.26","101.09","+6.02"],
+        ["@lightmyBONfire","0–3","251.20","83.73","-110.32"],
+        ["@SanDiegoSuperBurgers","2–1","378.08","126.03","+22.50"],
+        ["@Waddlepenguin","1–2","282.98","94.33","-18.08"],
+        ["@LycaonPictus","0–2","156.92","78.46","-18.20"],
+        ["@TheBeardedVet","1–1","201.38","100.69","+3.64"],
+        ["@kscarney24","1–0","164.36","164.36","+71.10"],
+        ["@dianne399","0–1","100.10","100.10","-16.02"]
+    ];
+    return data.map(r => `
+        <tr style="border-bottom: 1px solid #333;">
+            <td style="padding:5px;">${r[0]}</td>
+            <td style="padding:5px;">${r[1]}</td>
+            <td style="padding:5px;">${r[3]}</td>
+            <td style="padding:5px; color:${r[4].startsWith('+') ? '#4ade80' : '#f87171'}">${r[4]}</td>
+        </tr>`).join('');
 }
 
 function closeOverlay() {
     document.getElementById('full-page-overlay').classList.add('overlay-hidden');
 }
 </script>
-
-</body>
-</html>
