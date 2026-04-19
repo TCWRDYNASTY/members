@@ -8,13 +8,8 @@
 
 <style>
 /* --- BASE RESET --- */
-html {
-    box-sizing: border-box;
-}
-
-*, *:before, *:after {
-    box-sizing: inherit;
-}
+html { box-sizing: border-box; }
+*, *:before, *:after { box-sizing: inherit; }
 
 body {
     margin: 0;
@@ -45,16 +40,11 @@ body {
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-.logo-container img {
-    width: 100%;
-    max-width: 200px;
-    height: auto;
-}
-
+.logo-container img { width: 100%; max-width: 200px; height: auto; }
 .header .title { font-size: clamp(1.5rem, 5vw, 2.8rem); font-weight: 800; text-transform: uppercase; }
 .header .subtitle { font-size: clamp(1.2rem, 3vw, 2rem); letter-spacing: 2px; }
 
-/* --- SEAMLESS MANAGER CARDS --- */
+/* --- MANAGER CARDS --- */
 .champ {
     background-color: #2d3748;
     text-align: center;
@@ -62,12 +52,12 @@ body {
     border: 4px solid #4a5568;
     border-radius: 12px; 
     width: 260px; 
-    height: 300px; /* Fixed height to keep grid uniform */
+    height: 300px;
     position: relative;
-    overflow: hidden; /* Clips image to the rounded corners */
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    padding: 0 !important; /* Forces image to be flush with borders */
+    padding: 0 !important;
     cursor: pointer;
     transition: transform 0.2s, border-color 0.2s;
 }
@@ -78,45 +68,23 @@ body {
     box-shadow: 0 10px 20px rgba(0,0,0,0.4);
 }
 
-.champ-content {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-}
-
-.champ-content img {
-    width: 100%;
-    height: 200px; /* Image takes up top portion */
-    object-fit: cover;
-    display: block;
-    margin: 0;
-}
+.champ-content { display: flex; flex-direction: column; height: 100%; width: 100%; }
+.champ-content img { width: 100%; height: 200px; object-fit: cover; display: block; margin: 0; }
 
 .manager-names {
-    background-color: #2d3748; /* Solid block color matching card base */
+    background-color: #2d3748;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-grow: 1; /* Fills the rest of the card perfectly */
+    flex-grow: 1;
     padding: 10px;
     width: 100%;
-    border-top: 2px solid #4a5568; /* Clean line between image and text */
+    border-top: 2px solid #4a5568;
 }
 
-.real-name { 
-    font-size: 1.2rem; 
-    font-weight: 700; 
-    color: white;
-}
-
-.login-name { 
-    font-size: 0.9rem; 
-    color: #cbd5e0; 
-    font-style: italic;
-    margin-top: 2px;
-}
+.real-name { font-size: 1.2rem; font-weight: 700; color: white; }
+.login-name { font-size: 0.9rem; color: #cbd5e0; font-style: italic; margin-top: 2px; }
 
 /* --- RETIRED STAMP --- */
 .retired-stamp {
@@ -134,22 +102,11 @@ body {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-/* --- LAYOUT COLUMNS --- */
-.column-container {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-}
+/* --- LAYOUT --- */
+.column-container { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+.column-left, .column-center, .column-right, .column-retired { flex: 1 1 300px; padding: 10px; display: flex; flex-direction: column; }
 
-.column-left, .column-center, .column-right, .column-retired {
-    flex: 1 1 300px;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-}
-
-/* --- OVERLAY & DOSSIER (FIXES OVERFLOW) --- */
+/* --- OVERLAY --- */
 #full-page-overlay {
     position: fixed;
     top: 0;
@@ -176,7 +133,7 @@ body {
     padding: 40px 25px;
     margin: auto;
     position: relative;
-    box-sizing: border-box; /* Crucial: Keeps padding inside the gold border */
+    box-sizing: border-box;
 }
 
 .close-btn {
@@ -194,7 +151,7 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
     margin-top: 30px;
-    width: 100%; /* Ensures grid stays within parent */
+    width: 100%;
 }
 
 .dossier-section {
@@ -204,46 +161,20 @@ body {
     border: 1px solid #444;
 }
 
-/* Table Containment */
-.h2h-scroll {
-    max-height: 450px;
-    overflow-y: auto;
-    width: 100%;
-}
+.h2h-scroll { max-height: 450px; overflow-y: auto; width: 100%; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 8px 4px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); }
 
-table { 
-    width: 100%; 
-    border-collapse: collapse; 
-    table-layout: auto; 
-}
-
-th, td { 
-    padding: 8px 4px; 
-    text-align: left; 
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-/* --- RESPONSIVE QUERIES --- */
 @media (max-width: 900px) {
     .dossier-grid { grid-template-columns: 1fr; }
-    .overlay-content { padding: 20px 15px; margin: 10px 0; }
-}
-
-@media (max-width: 600px) {
-    body { padding: 10px; }
-    .champ { width: 100%; max-width: 320px; }
 }
 </style>
-    
-
 </head>
 
 <body>
 
 <div class="header">
-    <div class="logo-container">
-        <img src="DYNASTYLOGO.jpeg" alt="logo">
-    </div>
+    <div class="logo-container"><img src="DYNASTYLOGO.jpeg" alt="logo"></div>
     <div class="header-text">
         <p class="title">TCWR Dy-NASTY League</p>
         <p class="subtitle">Members</p>
@@ -252,10 +183,7 @@ th, td {
 
 <div class="column-container">
     <div class="column-left">
-        <div class="champ" id="AnNguyen" 
-             onclick="openOverlay('AnNguyen')" 
-             data-summary="<b>The Brick Wall</b><br>This category honors the manager with the league’s most intimidating scoring differential. It’s not just about winning; it’s about making sure your opponent doesn't even stand a chance. Whether through an elite roster or pure intimidation, these teams consistently leave their matchups in the dust.<br><br><b>Smoke and Mirrors</b><br>This is for the team that is defying the laws of statistics. While their average scoring might not be the highest in the league, their win-loss record tells a completely different story. It’s a masterclass in timing, luck, and winning the games that actually matter.<br><br><b>The Cardiac Kid</b><br>This category is dedicated to the manager who refuses to win comfortably. Every matchup is a nail-biter that comes down to the final Monday Night Football catch. They have a winning record, but their point differential is razor-thin—proving that a win is a win, no matter how much gray hair it causes.<br><br><b>Murphy’s Law</b><br>This award goes to the league’s biggest statistical victim. This team puts up massive points every single week, only to have their opponent put up the best performance of their season. It’s proof that the schedule makers have a personal vendetta against you.">
-            
+        <div class="champ" id="AnNguyen" onclick="openOverlay('AnNguyen')">
             <div class="champ-content">
                 <img src="brody2.JPG" alt="An Nguyen">
                 <div class="manager-names">
@@ -264,7 +192,6 @@ th, td {
                 </div>
             </div>
         </div>
-
         <div class="champ" id="drvargas" onclick="openOverlay('drvargas')">
             <div class="champ-content">
                 <img src="Brody.JPG" alt="Steven Vargas">
@@ -274,130 +201,7 @@ th, td {
                 </div>
             </div>
         </div>
-
-        <div class="champ" id="BUNNIESUPBUDDY" onclick="openOverlay('BUNNIESUPBUDDY')">
-            <div class="champ-content">
-                <img src="kitty.jpg" alt="Evelyn Gregory">
-                <div class="manager-names">
-                    <span class="real-name">Evelyn Gregory</span>
-                    <span class="login-name">"BUNNIESUPBUDDY"</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="champ" id="mgreg00x" onclick="openOverlay('mgreg00x')">
-            <div class="champ-content">
-                <img src="Raja.png" alt="Matt Gregory">
-                <div class="manager-names">
-                    <span class="real-name">Matt Gregory</span>
-                    <span class="login-name">"mgreg00x"</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="champ" id="dudenamedtrevor" onclick="openOverlay('dudenamedtrevor')">
-            <div class="champ-content">
-                <img src="zeusc.jpg" alt="Trevor Guidinger">
-                <div class="manager-names">
-                    <span class="real-name">Trevor Guidinger</span>
-                    <span class="login-name">"dudenamedtrevor"</span>
-                </div>
-            </div>
-        </div>
     </div> 
-
-    <div class="column-center">
-        <div class="champ" id="lightmyBONfire" onclick="openOverlay('lightmyBONfire')">
-            <div class="champ-content">
-                <img src="ziggy.jpg" alt="Bonnie Glover">
-                <div class="manager-names">
-                    <span class="real-name">Bonnie Glover</span>
-                    <span class="login-name">"lightmyBONfire"</span>
-                </div>
-            </div>
-        </div>
-        <div class="champ" id="EmMack" onclick="openOverlay('EmMack')">
-            <div class="champ-content">
-                <img src="goober.JPG" alt="Emily McCormack">
-                <div class="manager-names">
-                    <span class="real-name">Emily McCormack</span>
-                    <span class="login-name">"EmMack"</span>
-                </div>
-            </div>
-        </div>
-        <div class="champ" id="CrazyCougars" onclick="openOverlay('CrazyCougars')">
-            <div class="champ-content">
-                <img src="Alex.JPG" alt="Jessica Sims">
-                <div class="manager-names">
-                    <span class="real-name">Jessica Sims</span>
-                    <span class="login-name">"CrazyCougars"</span>
-                </div>
-            </div>
-        </div>
-        <div class="champ" id="SanDiegoSuperBurgers" onclick="openOverlay('SanDiegoSuperBurgers')">
-            <div class="champ-content">
-                <img src="zeus.jpg" alt="Sylvester Martinez">
-                <div class="manager-names">
-                    <span class="real-name">Sylvester Martinez</span>
-                    <span class="login-name">"SanDiegoSuperBurgers"</span>
-                </div>
-            </div>
-        </div>
-        <div class="champ" id="Waddlepenguin" onclick="openOverlay('Waddlepenguin')">
-            <div class="champ-content">
-                <img src="zesusT2.jpeg" alt="Nate Meier">
-                <div class="manager-names">
-                    <span class="real-name">Nate Meier</span>
-                    <span class="login-name">"Waddlepenguin"</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="column-right">
-        <div class="champ" id="bcanfield0913" onclick="openOverlay('bcanfield0913')">
-            <div class="champ-content">
-                <img src="Rayn.jpg" alt="Brittany Canfield">
-                <div class="manager-names">
-                    <span class="real-name">Brittany Canfield</span>
-                    <span class="login-name">"bcanfield0913"</span>
-                </div>
-            </div>
-        </div>
-        <div class="champ" id="DawgPound247" onclick="openOverlay('DawgPound247')">
-            <div class="champ-content">
-                <img src="Missy.jpg" alt="Brian Hollingsworth">
-                <div class="manager-names">
-                    <span class="real-name">Brian Hollingsworth</span>
-                    <span class="login-name">"DawgPound247"</span>
-                </div>
-            </div>
-        </div>
-        <div class="champ" id="LycaonPictus" onclick="openOverlay('LycaonPictus')">
-            <div class="champ-content">
-                <img src="kitty2.JPG" alt="Brad SoRelle">
-                <div class="manager-names">
-                    <span class="real-name">Brad SoRelle</span>
-                    <span class="login-name">"LycaonPictus"</span>
-                </div>
-            </div>
-        </div>
-        <div class="champ" id="dianne399" onclick="openOverlay('dianne399')">
-            <div class="champ-content">
-                <img src="noah.jpg" alt="Dianne Mohr">
-                <div class="manager-names">
-                    <span class="real-name">Dianne Mohr</span>
-                    <span class="login-name">"dianne399"</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="column-retired">
-        <div class="champ"><div class="retired-stamp">RETIRED</div><p>Alex Hauenstein<br />0 Seasons</p></div>
-        <div class="champ"><div class="retired-stamp">RETIRED</div><p>Kurt Carney<br />1 Season</p></div>
-        <div class="champ"><div class="retired-stamp">RETIRED</div><p>Matt Sellers<br />2 Seasons</p></div>
-    </div>
 </div>
 
 <div id="full-page-overlay" class="overlay-hidden">
@@ -406,12 +210,12 @@ th, td {
         <div id="dossier-target"></div>
     </div>
 </div>
+
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
 <script>
 let db = null;
-const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQjIjcUVkLUwsSErcmBR-WHYSu6WxbAlckp2oZOGkDQFoqea7El8QLa2shDlyrUPSAXZtv89DzcMcvk/pub?gid=1130418004&single=true&output=csv";
 
 window.onload = function() {
     const firebaseConfig = {
@@ -423,65 +227,26 @@ window.onload = function() {
         appId: "1:544187199777:web:05753208f1daee32558e60"
     };
 
-    if (typeof firebase !== 'undefined') {
-        firebase.initializeApp(firebaseConfig);
-        db = firebase.firestore();
-        console.log("🚀 Firebase connected successfully!");
-        updateLeaderboard();
-    } else {
-        console.error("❌ Firebase script didn't load.");
-    }
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.firestore();
 };
-
-async function updateLeaderboard() {
-    try {
-        const response = await fetch(sheetUrl);
-        const data = await response.text();
-        const rows = data.split('\n').slice(1);
-
-        rows.forEach(row => {
-            const cols = row.split(',');
-            if (cols.length < 2) return;
-
-            const [rank, rawName, points, lastYear] = cols.map(c => c.trim());
-            const elementId = rawName.replace(/\s+/g, ''); 
-            const managerCard = document.getElementById(elementId);
-
-            if (managerCard) {
-                const r = managerCard.querySelector('.current-rank');
-                const p = managerCard.querySelector('.points');
-                const l = managerCard.querySelector('.last-year-rank');
-                if (r) r.innerText = `Rank: ${rank}`;
-                if (p) p.innerText = `${points} pts`;
-                if (l) l.innerText = `2025: #${lastYear}`;
-            }
-        });
-    } catch (err) { console.error("Sheets Error:", err); }
-}
 
 async function openOverlay(managerId) {
     const overlay = document.getElementById('full-page-overlay');
     const target = document.getElementById('dossier-target');
-    const customSummary = document.getElementById(managerId).getAttribute('data-summary') || "";
     
     overlay.classList.remove('overlay-hidden');
     target.innerHTML = `<p style="text-align:center; color:#FFD700; padding:40px;">Decrypting Dossier...</p>`;
-
-    if (!db) {
-        target.innerHTML = `<p style="text-align:center; color:red;">Database Connection Offline.</p>`;
-        return;
-    }
 
     try {
         const doc = await db.collection("managers").doc(managerId).get();
         if (doc.exists) {
             const d = doc.data(); 
-            const displayName = d.memberId || "Unknown Manager"; 
+            const displayName = d.memberId || managerId; 
 
-            // REMOVED THE "IF ANNGUYEN" LINE - NOW WORKS FOR EVERYONE
             target.innerHTML = `
                 <div class="dossier-header">
-                    <h1>${displayName}</h1>
+                    <h1 style="text-align:center; color:#FFD700; font-size: 2.5rem;">${displayName}</h1>
                 </div>
 
                 <div class="dossier-grid" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));">
@@ -515,14 +280,10 @@ async function openOverlay(managerId) {
                     <div class="dossier-section">
                         <h3 style="color:#FFD700; margin-top:0; border-bottom:1px solid #FFD700; padding-bottom:5px;">Head-to-Head History</h3>
                         <div class="h2h-scroll">
-                            <table style="font-size: 0.9rem; width: 100%; border-collapse: collapse;">
+                            <table style="font-size: 0.9rem;">
                                 <thead style="position: sticky; top: 0; background: #1a202c; color: gold;">
                                     <tr>
-                                        <th style="padding:10px 5px;">Opponent</th>
-                                        <th style="padding:10px 5px;">Rec</th>
-                                        <th style="padding:10px 5px;">Total PF</th>
-                                        <th style="padding:10px 5px;">Avg</th>
-                                        <th style="padding:10px 5px;">Diff</th>
+                                        <th>Opponent</th><th>Rec</th><th>Total PF</th><th>Avg</th><th>Diff</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -533,18 +294,14 @@ async function openOverlay(managerId) {
                     </div>
                 </div>
 
-                <div style="margin-top: 30px; padding: 20px; background: rgba(255, 215, 0, 0.1); border-radius: 10px; border: 1px solid #FFD700; color: white;">
-                    <h4 style="text-align:center; text-transform:uppercase; margin-top:0; color:#FFD700;">Intelligence Briefing</h4>
-                    <div style="font-size: 0.95rem; line-height: 1.6; text-align: center;">${customSummary}</div>
-                </div>
-
-                <div style="margin-top: 20px; padding: 25px; background: white; border-radius: 20px; border: 3px solid #FFD700; color: #1a202c;">
+                <div style="margin-top: 25px; padding: 25px; background: white; border-radius: 20px; border: 3px solid #FFD700; color: #1a202c;">
                     <h4 style="text-align:center; text-transform:uppercase; margin-top:0; border-bottom:1px solid #ddd; padding-bottom:10px; font-weight: 800;">Match Up Intel Key</h4>
-                    <div style="font-size: 0.9rem; line-height: 1.5; color: #333;">
+                    <div style="font-size: 0.9rem; line-height: 1.6; color: #333;">
                         <p><strong>The Brick Wall:</strong> The team that is a barricade to the manager's success.</p>
                         <p><strong>Smoke and Mirrors:</strong> The average scoring might not be the highest in the league, but their win-loss record tells a completely different story.</p>
                         <p><strong>Cardiac Kid:</strong> Every matchup is a nail-biter. They have a winning record, but their point differential is razor-thin.</p>
                         <p><strong>Murphy’s Law:</strong> Puts up massive points every single week, only to have their opponent put up a better performance.</p>
+                        <p><strong>Reality Check:</strong> The opponent that most consistently scores their season average against you.</p>
                     </div>
                 </div>
             `;
@@ -570,14 +327,10 @@ function generateH2HRows() {
         ["@kscarney24","1–0","164.36","164.36","+71.10"],
         ["@dianne399","0–1","100.10","100.10","-16.02"]
     ];
-
     return data.map(r => `
-        <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
-            <td style="padding:10px 5px;">${r[0]}</td>
-            <td style="padding:10px 5px;">${r[1]}</td>
-            <td style="padding:10px 5px;">${r[2]}</td>
-            <td style="padding:10px 5px;">${r[3]}</td>
-            <td style="padding:10px 5px; font-weight:bold; color:${r[4].startsWith('+') ? '#4ade80' : '#f87171'}">${r[4]}</td>
+        <tr>
+            <td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td>
+            <td style="font-weight:bold; color:${r[4].startsWith('+') ? '#4ade80' : '#f87171'}">${r[4]}</td>
         </tr>`).join('');
 }
 
