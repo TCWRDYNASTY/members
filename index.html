@@ -68,7 +68,6 @@ body {
     text-align: center;
     font-family: 'Inter', sans-serif;
     margin: 0 auto 20px auto; 
-    padding: 20px;
     border: 4px solid #4a5568;
     border-radius: 12px; 
     width: 260px; 
@@ -79,8 +78,6 @@ body {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     transition: transform 0.2s ease;
 }
 
@@ -91,23 +88,23 @@ body {
 .champ-content {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    text-align: center;
+    height: 100%;
 }
 
 .champ-content img {
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
+    width: 100%;
+    height: 170px; /* Adjust this to change how much space the photo takes */
     object-fit: cover;
-    border: 3px solid #e2e8f0;
+    display: block;
 }
 
 .manager-names {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    justify-content: center;
+    flex-grow: 1; /* Centers the names in the remaining bottom space */
+    gap: 2px;
+    padding: 5px;
 }
 
 .real-name {
@@ -188,7 +185,6 @@ body {
     justify-content: center;
     align-items: center;
     border: 3px solid #FFD700;
-    border-radius: 8px;
 }
 
 .champ:hover .stats-overlay {
@@ -232,6 +228,7 @@ body {
     }
 }
 </style>
+
 </head>
 
 <body>
@@ -415,19 +412,20 @@ body {
         const data = doc.data();
         const loadingDiv = document.getElementById("loading-message");
         
-     loadingDiv.innerHTML = `
+    loadingDiv.innerHTML = `
   <div style="color: #FFD700; font-weight: bold; margin-top: 5px; line-height: 1.4; text-align: center; font-size: 0.85rem;">
     Rank: ${data.rank} <br>
-    Score: ${data['total score']} <br>
+    Score: ${data.totalScore} <br>
     
     <hr style="border: 0; border-top: 1px solid rgba(255, 215, 0, 0.3); margin: 6px auto; width: 80%;">
     
-    Record: ${data['career Record']} (${data.winPct}) <br>
-    Total Points: ${data['totalpoints for']} <br>
-    Avg PPG: ${data.careerAvg} <br>
-    Playoffs: ${data.PLayoffAppearances} | Rings: ${data.Championships}
+    Record: ${data.careerRecord} (${data.winPct}) <br>
+    Total Points: ${data.totalPointsFor} <br>
+    Avg PPG: ${data.carreerAvg} <br>
+    Playoffs: ${data.playoffAppearances} | Rings: ${data.championships}
   </div>
 `;
+
 
         console.log("🔥 Data successfully loaded for:", managerId);
       } else {
