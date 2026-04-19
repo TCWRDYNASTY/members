@@ -253,31 +253,37 @@ async function openOverlay(managerId) {
     const target = document.getElementById('dossier-target');
     
     overlay.classList.remove('overlay-hidden');
-    target.innerHTML = `<p style="text-align:center; color:#FFD700; padding:40px;">Decrypting Dossier...</p>`;
+    
+    // FIX: Set a min-height here so the box doesn't collapse while loading
+    target.innerHTML = `
+        <div style="text-align:center; color:#FFD700; padding:100px 0; min-height: 600px; display: flex; align-items: center; justify-content: center; width: 100%;">
+            <p style="font-size: 1.5rem; letter-spacing: 2px;">Decrypting Dossier for ${managerId}...</p>
+        </div>`;
 
     try {
         const doc = await db.collection("managers").doc(managerId).get();
         if (doc.exists) {
             const d = doc.data(); 
+            // Corrected to match your Firebase fields:
             const displayName = d.memberId || managerId; 
 
             target.innerHTML = `
                 <div class="dossier-header">
-                    <h1 style="text-align:center; color:#FFD700; font-size: 2.5rem;">${displayName}</h1>
+                    <h1 style="text-align:center; color:#FFD700; font-size: 2.5rem; margin-bottom: 20px;">${displayName}</h1>
                 </div>
 
-                <div class="dossier-grid" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));">
+                <div class="dossier-grid">
                     <div class="dossier-stack" style="display: flex; flex-direction: column; gap: 20px;">
                         <div class="dossier-section">
                             <h3 style="color:#FFD700; margin-top:0; border-bottom:1px solid #FFD700; padding-bottom:5px;">Manager Stats</h3>
                             <div style="font-size: 0.9rem; line-height: 1.8; color:white;">
-                            <p><strong>Rank:</strong> #${d.rank || 'N/A'}</p>
-        <p><strong>Score:</strong> ${d.totalScore || '0.00'}</p>
-        <p><strong>Record:</strong> ${d.careerRecord || '0-0'} (${d.winPct || '0%'})</p>
-        <p><strong>Total Points:</strong> ${d.totalPointsFor || '0.00'}</p>
-        <p><strong>Avg PPG:</strong> ${d.carreerAvg || '0.00'}</p>
-        <p><strong>Playoffs:</strong> ${d.playoffAppearances || '0'}</p>
-        <p><strong>Rings:</strong> ${d.championships || '0'} 🏆</p>
+                                <p><strong>Rank:</strong> #${d.rank || 'N/A'}</p>
+                                <p><strong>Score:</strong> ${d.totalScore || '0.00'}</p>
+                                <p><strong>Record:</strong> ${d.careerRecord || '0-0'} (${d.winPct || '0%'})</p>
+                                <p><strong>Total Points:</strong> ${d.totalPointsFor || '0.00'}</p>
+                                <p><strong>Avg PPG:</strong> ${d.carreerAvg || '0.00'}</p>
+                                <p><strong>Playoffs:</strong> ${d.playoffAppearances || '0'}</p>
+                                <p><strong>Rings:</strong> ${d.championships || '0'} 🏆</p>
                             </div>
                         </div>
 
@@ -313,7 +319,7 @@ async function openOverlay(managerId) {
                 <div style="margin-top: 25px; padding: 25px; background: white; border-radius: 20px; border: 3px solid #FFD700; color: #1a202c;">
                     <h4 style="text-align:center; text-transform:uppercase; margin-top:0; border-bottom:1px solid #ddd; padding-bottom:10px; font-weight: 800;">Match Up Intel Key</h4>
                     <div style="font-size: 0.9rem; line-height: 1.6; color: #333;">
-                        <p><strong>The Brick Wall:</strong> The team that's a barricade to the manager's success. Lossing record and highest negative point differential</p>
+                        <p><strong>The Brick Wall:</strong> The team that's a barricade to the manager's success. Losing record and highest negative point differential.</p>
                         <p><strong>Smoke and Mirrors:</strong> The average scoring might not be the highest in the league, but their win-loss record tells a completely different story.</p>
                         <p><strong>Cardiac Kid:</strong> Every matchup is a nail-biter. Lowest positive point differential.</p>
                         <p><strong>Murphy’s Law:</strong> Puts up massive points every single week, only to have their opponent put up a better performance.</p>
@@ -321,7 +327,10 @@ async function openOverlay(managerId) {
                 </div>
             `;
         }
-    } catch (e) { console.error(e); }
+    } catch (e) { 
+        console.error(e); 
+        target.innerHTML = `<p style="color:red; text-align:center;">Failed to load dossier.</p>`;
+    }
 }
 
 function generateH2HRows() {
