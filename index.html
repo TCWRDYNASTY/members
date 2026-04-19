@@ -458,11 +458,17 @@
         const loadingDiv = document.getElementById("loading-message");
         
         // This updates the text inside An's card
-        loadingDiv.innerHTML = `
-          <div style="color: #FFD700; font-weight: bold; margin-top: 10px;">
+     loadingDiv.innerHTML = `
+          <div style="color: #FFD700; font-weight: bold; margin-top: 10px; line-height: 1.5;">
+            Tier: ${data.managerTier} <br>
             Score: ${data.totalScore} <br>
             Trend: ${data.trend} <br>
-            Tier: ${data.managerTier}
+            
+            <hr style="border: 0; border-top: 1px solid rgba(255, 215, 0, 0.3); margin: 5px 0;">
+            Record: ${data.careerRecord} <br>
+            Total Points: ${data.totalPointsFor} <br>
+            Avg PPG: ${data.careerAvg} <br>
+            Championships: ${data.championships}
           </div>
         `;
         
