@@ -476,95 +476,108 @@ async function openOverlay(managerId) {
         const doc = await db.collection("managers").doc(managerId).get();
         if (doc.exists) {
             const d = doc.data(); 
-            const displayName = d.memberId || "TB12isDaddy"; 
+            const displayName = d.memberId || "Unknown Manager"; 
 
-            if (managerId === "AnNguyen") {
-                target.innerHTML = `
-                    <div class="dossier-header">
-                        <h1>${displayName}</h1>
-                    </div>
+            // REMOVED THE "IF ANNGUYEN" LINE - NOW WORKS FOR EVERYONE
+            target.innerHTML = `
+                <div class="dossier-header">
+                    <h1>${displayName}</h1>
+                </div>
 
-                    <div class="dossier-grid">
+                <div class="dossier-grid" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));">
+                    <div class="dossier-stack" style="display: flex; flex-direction: column; gap: 20px;">
                         <div class="dossier-section">
                             <h3 style="color:#FFD700; margin-top:0; border-bottom:1px solid #FFD700; padding-bottom:5px;">Manager Stats</h3>
                             <div style="font-size: 0.9rem; line-height: 1.8; color:white;">
-                                <p><strong>Rank:</strong> #${d.rank || '7'}</p>
-                                <p><strong>Score:</strong> 5.07</p>
-                                <p><strong>Record:</strong> 17-25 (40.5%)</p>
-                                <p><strong>Total Points:</strong> 4478.36</p>
-                                <p><strong>Avg PPG:</strong> 106.63</p>
-                                <p><strong>Playoffs:</strong> 1</p>
-                                <p><strong>Rings:</strong> 0 🏆</p>
+                                <p><strong>Rank:</strong> #${d.rank || 'N/A'}</p>
+                                <p><strong>Score:</strong> ${d.score || '0.00'}</p>
+                                <p><strong>Record:</strong> ${d.record || '0-0'}</p>
+                                <p><strong>Total Points:</strong> ${d.totalPoints || '0.00'}</p>
+                                <p><strong>Avg PPG:</strong> ${d.avgPPG || '0.00'}</p>
+                                <p><strong>Playoffs:</strong> ${d.playoffs || '0'}</p>
+                                <p><strong>Rings:</strong> ${d.rings || '0'} 🏆</p>
                             </div>
                         </div>
 
                         <div class="dossier-section">
                             <h3 style="color:#FFD700; margin-top:0; border-bottom:1px solid #FFD700; padding-bottom:5px;">Matchup Intel</h3>
-                            <table>
+                            <table style="font-size: 0.85rem;">
                                 <tr style="color:gold; font-size:0.75rem;"><th>Category</th><th>Manager</th></tr>
-                                <tr><td><b>The Brick Wall</b></td><td>@mgreg00x<br><span style="color:#4ade80">+66.12 Diff</span></td></tr>
-                                <tr><td><b>Smoke & Mirrors</b></td><td>@bcanfield0913<br>3–1 (125.38 Avg)</td></tr>
-                                <tr><td><b>The Cardiac Kid</b></td><td>@drvargas<br>2–2 (+1.92 Diff)</td></tr>
-                                <tr><td><b>Murphy’s Law</b></td><td>@BUNNIESUPBUDDY<br>0–3 (111.41 Avg)</td></tr>
-                                <tr><td><b>Reality Check</b></td><td>@SanDiegoSuperBurgers<br>126.03 Avg PF</td></tr>
+                                <tr><td><b>The Brick Wall</b></td><td>${d.brickWall || 'TBD'}</td></tr>
+                                <tr><td><b>Smoke & Mirrors</b></td><td>${d.smokeMirrors || 'TBD'}</td></tr>
+                                <tr><td><b>The Cardiac Kid</b></td><td>${d.cardiacKid || 'TBD'}</td></tr>
+                                <tr><td><b>Murphy’s Law</b></td><td>${d.murphysLaw || 'TBD'}</td></tr>
+                                <tr><td><b>Reality Check</b></td><td>${d.realityCheck || 'TBD'}</td></tr>
                             </table>
                         </div>
+                    </div>
 
-                        <div class="dossier-section">
-                            <h3 style="color:#FFD700; margin-top:0; border-bottom:1px solid #FFD700; padding-bottom:5px;">Head-to-Head History</h3>
-                            <div class="h2h-scroll">
-                                <table style="font-size: 0.7rem;">
-                                    <thead style="position: sticky; top: 0; background: #1a202c; color: gold;">
-                                        <tr>
-                                            <th>Opponent</th>
-                                            <th>Rec</th>
-                                            <th>Avg</th>
-                                            <th>Diff</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        ${generateH2HRows()}
-                                    </tbody>
-                                </table>
-                            </div>
+                    <div class="dossier-section">
+                        <h3 style="color:#FFD700; margin-top:0; border-bottom:1px solid #FFD700; padding-bottom:5px;">Head-to-Head History</h3>
+                        <div class="h2h-scroll">
+                            <table style="font-size: 0.9rem; width: 100%; border-collapse: collapse;">
+                                <thead style="position: sticky; top: 0; background: #1a202c; color: gold;">
+                                    <tr>
+                                        <th style="padding:10px 5px;">Opponent</th>
+                                        <th style="padding:10px 5px;">Rec</th>
+                                        <th style="padding:10px 5px;">Total PF</th>
+                                        <th style="padding:10px 5px;">Avg</th>
+                                        <th style="padding:10px 5px;">Diff</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${generateH2HRows()} 
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                </div>
 
-                    <div style="margin-top: 30px; padding: 25px; background: white; border-radius: 20px; border: 3px solid #FFD700; color: #1a202c;">
-                        <h4 style="text-align:center; text-transform:uppercase; margin-top:0; border-bottom:1px solid #ddd; padding-bottom:10px;">Intelligence Briefing</h4>
-                        <div style="font-size: 0.9rem; line-height: 1.6;">${customSummary}</div>
+                <div style="margin-top: 30px; padding: 20px; background: rgba(255, 215, 0, 0.1); border-radius: 10px; border: 1px solid #FFD700; color: white;">
+                    <h4 style="text-align:center; text-transform:uppercase; margin-top:0; color:#FFD700;">Intelligence Briefing</h4>
+                    <div style="font-size: 0.95rem; line-height: 1.6; text-align: center;">${customSummary}</div>
+                </div>
+
+                <div style="margin-top: 20px; padding: 25px; background: white; border-radius: 20px; border: 3px solid #FFD700; color: #1a202c;">
+                    <h4 style="text-align:center; text-transform:uppercase; margin-top:0; border-bottom:1px solid #ddd; padding-bottom:10px; font-weight: 800;">Match Up Intel Key</h4>
+                    <div style="font-size: 0.9rem; line-height: 1.5; color: #333;">
+                        <p><strong>The Brick Wall:</strong> The team that is a barricade to the manager's success.</p>
+                        <p><strong>Smoke and Mirrors:</strong> The average scoring might not be the highest in the league, but their win-loss record tells a completely different story.</p>
+                        <p><strong>Cardiac Kid:</strong> Every matchup is a nail-biter. They have a winning record, but their point differential is razor-thin.</p>
+                        <p><strong>Murphy’s Law:</strong> Puts up massive points every single week, only to have their opponent put up a better performance.</p>
                     </div>
-                `;
-            }
+                </div>
+            `;
         }
     } catch (e) { console.error(e); }
 }
 
 function generateH2HRows() {
     const data = [
-        ["@EmMack","1–2","77.67","-77.16"],
-        ["@bcanfield0913","3–1","125.38","+29.30"],
-        ["@drvargas","2–2","109.61","+1.92"],
-        ["@mgreg00x","3–1","122.85","+66.12"],
-        ["@DawgPound247","1–2","101.71","-14.26"],
-        ["@dudenamedtrevor","1–2","112.12","-73.34"],
-        ["@BUNNIESUPBUDDY","0–3","111.41","-125.24"],
-        ["@CrazyCougars","1–2","101.09","+6.02"],
-        ["@lightmyBONfire","0–3","83.73","-110.32"],
-        ["@SanDiegoSuperBurgers","2–1","126.03","+22.50"],
-        ["@Waddlepenguin","1–2","94.33","-18.08"],
-        ["@LycaonPictus","0–2","78.46","-18.20"],
-        ["@TheBeardedVet","1–1","100.69","+3.64"],
-        ["@kscarney24","1–0","164.36","+71.10"],
-        ["@dianne399","0–1","100.10","-16.02"]
+        ["@EmMack","1–2","233.02","77.67","-77.16"],
+        ["@bcanfield0913","3–1","501.52","125.38","+29.30"],
+        ["@drvargas","2–2","438.42","109.61","+1.92"],
+        ["@mgreg00x","3–1","491.40","122.85","+66.12"],
+        ["@DawgPound247","1–2","305.12","101.71","-14.26"],
+        ["@dudenamedtrevor","1–2","336.36","112.12","-73.34"],
+        ["@BUNNIESUPBUDDY","0–3","334.24","111.41","-125.24"],
+        ["@CrazyCougars","1–2","303.26","101.09","+6.02"],
+        ["@lightmyBONfire","0–3","251.20","83.73","-110.32"],
+        ["@SanDiegoSuperBurgers","2–1","378.08","126.03","+22.50"],
+        ["@Waddlepenguin","1–2","282.98","94.33","-18.08"],
+        ["@LycaonPictus","0–2","156.92","78.46","-18.20"],
+        ["@TheBeardedVet","1–1","201.38","100.69","+3.64"],
+        ["@kscarney24","1–0","164.36","164.36","+71.10"],
+        ["@dianne399","0–1","100.10","100.10","-16.02"]
     ];
 
     return data.map(r => `
-        <tr>
-            <td>${r[0]}</td>
-            <td>${r[1]}</td>
-            <td>${r[2]}</td>
-            <td style="color:${r[3].startsWith('+') ? '#4ade80' : '#f87171'}">${r[3]}</td>
+        <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
+            <td style="padding:10px 5px;">${r[0]}</td>
+            <td style="padding:10px 5px;">${r[1]}</td>
+            <td style="padding:10px 5px;">${r[2]}</td>
+            <td style="padding:10px 5px;">${r[3]}</td>
+            <td style="padding:10px 5px; font-weight:bold; color:${r[4].startsWith('+') ? '#4ade80' : '#f87171'}">${r[4]}</td>
         </tr>`).join('');
 }
 
