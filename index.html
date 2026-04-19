@@ -93,7 +93,7 @@ body {
 
 .champ-content img {
     width: 100%;
-    height: 170px; /* Adjust this to change how much space the photo takes */
+    height: 170px;
     object-fit: cover;
     display: block;
 }
@@ -102,7 +102,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    flex-grow: 1; /* Centers the names in the remaining bottom space */
+    flex-grow: 1;
     gap: 2px;
     padding: 5px;
 }
@@ -198,36 +198,6 @@ body {
     text-align: center;
 }
 
-@media (max-width: 1200px) {
-    .column-left, .column-center, .column-right, .column-retired {
-        flex: 1 1 30%;
-    }
-}
-
-@media (max-width: 900px) {
-    .column-left, .column-center, .column-right, .column-retired {
-        flex: 1 1 45%;
-    }
-}
-
-@media (max-width: 600px) {
-    .column-container {
-        flex-direction: column;
-        align-items: center;
-    }
-    .column-left, .column-center, .column-right, .column-retired {
-        width: 100%;
-        max-width: 100%;
-        flex: 1 1 auto;
-    }
-    .header {
-        flex-direction: column;
-    }
-    .logo-container img {
-        margin-bottom: 15px;
-    }
-}
-
 /* --- FULL PAGE OVERLAY STYLES --- */
 
 #full-page-overlay {
@@ -236,10 +206,10 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(10, 20, 30, 0.98); /* Deep dark blue/black */
-    z-index: 10000; /* Stays on top of everything */
-    padding: 40px;
-    overflow-y: auto; /* Allows scrolling if tables are long */
+    background-color: rgba(10, 20, 30, 0.98);
+    z-index: 10000;
+    padding: 20px; /* Reduced for mobile */
+    overflow-y: auto;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -253,9 +223,9 @@ body {
 
 .overlay-content {
     width: 100%;
-    max-width: 1000px; /* Big enough for side-by-side tables */
+    max-width: 1100px;
     background: #1a202c;
-    border: 3px solid #FFD700; /* Gold border for prestige */
+    border: 3px solid #FFD700;
     border-radius: 20px;
     padding: 30px;
     position: relative;
@@ -270,40 +240,57 @@ body {
     color: #FFD700;
     cursor: pointer;
     line-height: 1;
+    z-index: 10001;
 }
 
 .close-btn:hover {
     color: white;
 }
 
-/* Dossier Header Area */
-.dossier-header {
-    text-align: center;
-    border-bottom: 2px solid rgba(255, 215, 0, 0.3);
-    margin-bottom: 30px;
-    padding-bottom: 20px;
+/* Dossier Grid System */
+.dossier-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1.5fr; /* 3-column desktop */
+    gap: 20px;
+    align-items: start;
+    margin-top: 20px;
 }
 
-/* Table Styling for the Dossier */
+.dossier-header {
+    text-align: center;
+    border-bottom: 2px solid #FFD700;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+
+.dossier-header h1 {
+    font-size: 2.5rem;
+    margin: 0;
+    color: #FFD700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Table Styling */
 .table-box table {
     width: 100%;
     margin-top: 10px;
     color: white;
-    font-family: 'Inter', sans-serif;
+    border-collapse: collapse;
 }
 
 .table-box th {
     text-align: left;
-    padding: 10px;
+    padding: 8px;
     background-color: rgba(255, 215, 0, 0.1);
     color: #FFD700;
     text-transform: uppercase;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     letter-spacing: 1px;
 }
 
 .table-box td {
-    padding: 10px;
+    padding: 8px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -312,6 +299,43 @@ body {
     margin: 2px 0;
 }
 
+/* --- RESPONSIVE QUERIES --- */
+
+@media (max-width: 1200px) {
+    .column-left, .column-center, .column-right, .column-retired {
+        flex: 1 1 30%;
+    }
+}
+
+@media (max-width: 950px) {
+    /* Stack the Dossier columns on tablets/phones */
+    .dossier-grid {
+        grid-template-columns: 1fr;
+    }
+    .column-left, .column-center, .column-right, .column-retired {
+        flex: 1 1 45%;
+    }
+}
+
+@media (max-width: 600px) {
+    .column-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .column-left, .column-center, .column-right, .column-retired {
+        width: 100%;
+        max-width: 100%;
+    }
+    .header {
+        flex-direction: column;
+    }
+    .dossier-header h1 {
+        font-size: 1.8rem;
+    }
+    .overlay-content {
+        padding: 15px;
+    }
+}
 </style>
 
 </head>
@@ -481,11 +505,8 @@ body {
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
 <script>
-// 1. GLOBAL VARIABLES
 let db = null;
 const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQjIjcUVkLUwsSErcmBR-WHYSu6WxbAlckp2oZOGkDQFoqea7El8QLa2shDlyrUPSAXZtv89DzcMcvk/pub?gid=1130418004&single=true&output=csv";
-
-// 2. INITIALIZE ON LOAD
 window.onload = function() {
     const firebaseConfig = {
         apiKey: "AIzaSyCZYJeAJjeiaUoV2s1NBjGXVYOJtixh-qk",
@@ -506,7 +527,6 @@ window.onload = function() {
     }
 };
 
-// 3. SYNC GOOGLE SHEETS TO CARDS
 async function updateLeaderboard() {
     try {
         const response = await fetch(sheetUrl);
@@ -518,7 +538,6 @@ async function updateLeaderboard() {
             if (cols.length < 2) return;
 
             const [rank, rawName, points, lastYear] = cols.map(c => c.trim());
-            // Remove spaces to match HTML ID (e.g., "An Nguyen" -> "AnNguyen")
             const elementId = rawName.replace(/\s+/g, ''); 
             const managerCard = document.getElementById(elementId);
 
@@ -534,7 +553,6 @@ async function updateLeaderboard() {
     } catch (err) { console.error("Sheets Error:", err); }
 }
 
-// 4. FULL PAGE DOSSIER OVERLAY
 async function openOverlay(managerId) {
     const overlay = document.getElementById('full-page-overlay');
     const target = document.getElementById('dossier-target');
@@ -550,15 +568,17 @@ async function openOverlay(managerId) {
     try {
         const doc = await db.collection("managers").doc(managerId).get();
         if (doc.exists) {
-            const d = doc.data(); // Maps to fields like carreerAvg, winPct, totalPointsFor
+            const d = doc.data(); 
+            
+            // Displays memberId (e.g. TB12isDaddy) or defaults to the card name
+            const displayName = d.memberId || "TB12isDaddy"; 
             
             target.innerHTML = `
-                <div style="text-align:center; border-bottom: 2px solid #FFD700; padding-bottom:15px; margin-bottom:20px;">
-                    <h1 style="color:#FFD700; margin:0; font-size: 2.5rem; text-transform: uppercase;">${managerId}</h1>
-                    <p style="color:rgba(255,215,0,0.7); font-weight:bold; margin-top:5px;">CLASSIFIED LEAGUE INTEL</p>
+                <div class="dossier-header">
+                    <h1>${displayName}</h1>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1.2fr 1.5fr; gap: 15px; align-items: start;">
+                <div class="dossier-grid">
                     
                     <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:8px; border: 1px solid #444;">
                         <h3 style="color:#FFD700; margin-top:0; border-bottom:1px solid #FFD700; padding-bottom:5px;">Manager Stats</h3>
@@ -579,12 +599,13 @@ async function openOverlay(managerId) {
                             <tr style="text-align:left; color:gold; border-bottom:1px solid #555;">
                                 <th style="padding:5px;">Category</th><th style="padding:5px;">Manager</th>
                             </tr>
+                            
                             <tr style="border-bottom:1px solid #333;"><td style="padding:5px;"><b>The Brick Wall</b></td><td style="padding:5px;">@mgreg00x<br><span style="color:#4ade80">+66.12 Diff</span></td></tr>
                             <tr style="border-bottom:1px solid #333;"><td style="padding:5px;"><b>Smoke & Mirrors</b></td><td style="padding:5px;">@bcanfield0913<br>3–1 (125.38 Avg)</td></tr>
                             <tr style="border-bottom:1px solid #333;"><td style="padding:5px;"><b>The Cardiac Kid</b></td><td style="padding:5px;">@drvargas<br>2–2 (+1.92 Diff)</td></tr>
                             <tr style="border-bottom:1px solid #333;"><td style="padding:5px;"><b>Murphy’s Law</b></td><td style="padding:5px;">@BUNNIESUPBUDDY<br>0–3 (111.41 Avg)</td></tr>
                             <tr><td style="padding:5px;"><b>Reality Check</b></td><td style="padding:5px;">@SanDiegoSuperBurgers<br>126.03 Avg PF</td></tr>
-                        </table>
+                            </table>
                     </div>
 
                     <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:8px; border: 1px solid #444;">
@@ -608,6 +629,7 @@ async function openOverlay(managerId) {
 
 // Helper to generate the full H2H list
 function generateH2HRows() {
+    // DATA FOR AN START HERE
     const data = [
         ["@EmMack","1–2","233.02","77.67","-77.16"],
         ["@bcanfield0913","3–1","501.52","125.38","+29.30"],
@@ -625,6 +647,8 @@ function generateH2HRows() {
         ["@kscarney24","1–0","164.36","164.36","+71.10"],
         ["@dianne399","0–1","100.10","100.10","-16.02"]
     ];
+    // END OF AN DATA
+
     return data.map(r => `
         <tr style="border-bottom: 1px solid #333;">
             <td style="padding:5px;">${r[0]}</td>
