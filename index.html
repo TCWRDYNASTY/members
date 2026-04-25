@@ -273,7 +273,7 @@ const managerDataStore = {
         ["@dudenamedtrevor", "0–3", "321.52", "107.17", "-125.10"],
         ["@CrazyCougars", "0–3", "338.28", "112.76", "-106.44"]
     ],
-    "Default": [
+    "An": [
         ["@EmMack","1–2","233.02","77.67","-77.16"],
         ["@bcanfield0913","3–1","501.52","125.38","+29.30"],
         ["@drvargas","2–2","438.42","109.61","+1.92"],
@@ -347,17 +347,7 @@ async function openOverlay(managerId) {
                     </div>
                 </div>
 
-                <div style="margin-top: 25px; padding: 25px; background: white; border-radius: 20px; border: 3px solid #FFD700; color: #1a202c;">
-                    <h4 style="text-align:center; text-transform:uppercase; margin-top:0; border-bottom:1px solid #ddd; padding-bottom:10px; font-weight: 800;">Match Up Intel Key</h4>
-                    <div style="font-size: 0.9rem; line-height: 1.6; color: #333;">
-                        <p><strong>The Brick Wall:</strong> Losing record and highest negative point differential.</p>
-                        <p><strong>Smoke and Mirrors:</strong> Average scoring but a high win-loss record.</p>
-                        <p><strong>Cardiac Kid:</strong> Lowest positive point differential (close wins).</p>
-                        <p><strong>Murphy’s Law:</strong> High points but opponent always scores more.</p>
-                    </div>
-                </div>
-            `;
-        }
+            
     } catch (e) { 
         console.error("Firebase Error:", e); 
         target.innerHTML = `<p style="color:red; text-align:center; padding:50px;">Failed to decrypt dossier.</p>`;
