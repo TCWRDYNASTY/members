@@ -190,7 +190,7 @@ td:first-child, th:first-child {
 
 <div class="column-container">
     <div class="column-left">
-        <div class="champ" id="AnNguyen" onclick="openOverlay('AnNguyen')">
+        <div class="champ" id="An" onclick="openOverlay('An')">
             <div class="champ-content">
                 <img src="brody2.JPG" alt="An">
                 <div class="manager-names">
@@ -199,6 +199,19 @@ td:first-child, th:first-child {
                 </div>
             </div>
         </div>
+
+        <div class="column-container">
+    <div class="column-left">
+        <div class="champ" id="Bonnie" onclick="openOverlay('Bonnie')">
+            <div class="champ-content">
+                <img src="ziggy.jpg" alt="An">
+                <div class="manager-names">
+                    <span class="real-name">Bonnie</span>
+                    <span class="login-name">"lightmyBONfire"</span>
+                </div>
+            </div>
+        </div>
+        
         <div class="champ" id="drvargas" onclick="openOverlay('drvargas')">
             <div class="champ-content">
                 <img src="Brody.JPG" alt="Steven Vargas">
@@ -271,10 +284,10 @@ async function openOverlay(managerId) {
                             <h3 style="color:#FFD700; margin-top:0; border-bottom:1px solid #FFD700; padding-bottom:5px;">Manager Stats</h3>
                             <div style="font-size: 0.9rem; line-height: 1.8; color:white;">
                                 <p><strong>Rank:</strong> #${d.rank || 'N/A'}</p>
-                                <p><strong>Score:</strong> ${d.totalScore || '0.00'}</p>
+                                <p><strong>Score:</strong> ${d.totalManagerscore || '0.00'}</p>
                                 <p><strong>Record:</strong> ${d.careerRecord || '0-0'} (${d.winPct || '0%'})</p>
                                 <p><strong>Total Points:</strong> ${d.totalPointsFor || '0.00'}</p>
-                                <p><strong>Avg PPG:</strong> ${d.carreerAvg || '0.00'}</p>
+                                <p><strong>Avg PPG:</strong> ${d.careerAvg || '0.00'}</p>
                                 <p><strong>Playoffs:</strong> ${d.playoffAppearances || '0'}</p>
                                 <p><strong>Rings:</strong> ${d.championships || '0'} 🏆</p>
                             </div>
