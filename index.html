@@ -223,79 +223,68 @@ td:first-child, th:first-child {
 </div>
 
 <div class="column-container">
-    <div class="column-left">
-        <div class="champ" id="An" onclick="openOverlay('An')">
-            <div class="champ-content">
-                <img src="brody2.JPG" alt="An">
-                <div class="manager-names">
-                    <span class="real-name">An</span>
-                    <span class="login-name">"TB12isDaddy"</span>
-                </div>
-            </div>
-        </div>
-    </div> 
-
-    <div class="column-center">
-        <div class="champ" id="Bonnie" onclick="openOverlay('Bonnie')">
-            <div class="champ-content">
-                <img src="ziggy.jpg" alt="Bonnie">
-                <div class="manager-names">
-                    <span class="real-name">Bonnie</span>
-                    <span class="login-name">"lightmyBONfire"</span>
-                </div>
+    <div class="champ" id="An" onclick="openOverlay('An')">
+        <div class="champ-content">
+            <img src="brody2.JPG" alt="An">
+            <div class="manager-names">
+                <span class="real-name">An</span>
+                <span class="login-name">"TB12isDaddy"</span>
             </div>
         </div>
     </div>
 
-     <div class="column-right">
-        <div class="champ" id="Brad" onclick="openOverlay('Brad')">
-            <div class="champ-content">
-                <img src="zeusc.jpg" alt="Brad">
-                <div class="manager-names">
-                    <span class="real-name">Brad</span>
-                    <span class="login-name">"@LycaonPictus"</span>
-                </div>
+    <div class="champ" id="Bonnie" onclick="openOverlay('Bonnie')">
+        <div class="champ-content">
+            <img src="ziggy.jpg" alt="Bonnie">
+            <div class="manager-names">
+                <span class="real-name">Bonnie</span>
+                <span class="login-name">"lightmyBONfire"</span>
             </div>
         </div>
-    </div> 
-</div>
-     <div class="column-right">
-        <div class="champ" id="Brian" onclick="openOverlay('Brian')">
-            <div class="champ-content"> 
-                <img src="Missy.jpg" alt="Brian">
-                <div class="manager-names">
-                    <span class="real-name">Brian</span>
-                    <span class="login-name">"@DawgPound247"</span>
-                </div>
+    </div>
+
+    <div class="champ" id="Brad" onclick="openOverlay('Brad')">
+        <div class="champ-content">
+            <img src="zeusc.jpg" alt="Brad">
+            <div class="manager-names">
+                <span class="real-name">Brad</span>
+                <span class="login-name">"@LycaonPictus"</span>
             </div>
         </div>
-    </div> 
-</div>
-     <div class="column-right">
-        <div class="champ" id="Brittney" onclick="openOverlay('Brittney')">
-            <div class="champ-content">
-                <img src="Rayn.jpg" alt="Brittney">
-                <div class="manager-names">
-                    <span class="real-name">Brittney</span>
-                    <span class="login-name">"@bcanfield0913"</span>
-                </div>
+    </div>
+
+    <div class="champ" id="Brian" onclick="openOverlay('Brian')">
+        <div class="champ-content">
+            <img src="Missy.jpg" alt="Brian">
+            <div class="manager-names">
+                <span class="real-name">Brian</span>
+                <span class="login-name">"@DawgPound247"</span>
             </div>
         </div>
-    </div> 
-</div>
-    
-    <div class="column-right">
-        <div class="champ" id="drvargas" onclick="openOverlay('drvargas')">
-            <div class="champ-content">
-                <img src="Brody.JPG" alt="Steven Vargas">
-                <div class="manager-names">
-                    <span class="real-name">Steven Vargas</span>
-                    <span class="login-name">"drvargas"</span>
-                </div>
+    </div>
+
+    <div class="champ" id="Brittney" onclick="openOverlay('Brittney')">
+        <div class="champ-content">
+            <img src="Rayn.jpg" alt="Brittney">
+            <div class="manager-names">
+                <span class="real-name">Brittney</span>
+                <span class="login-name">"@bcanfield0913"</span>
             </div>
         </div>
-    </div> 
+    </div>
+
+    <div class="champ" id="drvargas" onclick="openOverlay('drvargas')">
+        <div class="champ-content">
+            <img src="Brody.JPG" alt="Steven Vargas">
+            <div class="manager-names">
+                <span class="real-name">Steven Vargas</span>
+                <span class="login-name">"drvargas"</span>
+            </div>
+        </div>
+    </div>
 </div>
+
+
 
 <div id="full-page-overlay" class="overlay-hidden">
     <div class="overlay-content">
@@ -327,28 +316,25 @@ window.onload = function() {
 
 // =========================================================
 // TEAM DATA REPOSITORY
-// Add new managers here. The key (e.g., "Bonnie") must 
-// match the Document ID in Firebase.
 // =========================================================
-
-    const managerDataStore = {
-        "An": [
-        ["@EmMack","1–2","233.02","77.67","-77.16"],
-        ["@bcanfield0913","3–1","501.52","125.38","+29.30"],
-        ["@drvargas","2–2","438.42","109.61","+1.92"],
-        ["@mgreg00x","3–1","491.40","122.85","+66.12"],
-        ["@DawgPound247","1–2","305.12","101.71","-14.26"],
-        ["@dudenamedtrevor","1–2","336.36","112.12","-73.34"],
-        ["@BUNNIESUPBUDDY","0–3","334.24","111.41","-125.24"],
-        ["@CrazyCougars","1–2","303.26","101.09","+6.02"],
-        ["@lightmyBONfire","0–3","251.20","83.73","-110.32"],
-        ["@SanDiegoSuperBurgers","2–1","378.08","126.03","+22.50"],
-        ["@Waddlepenguin","1–2","282.98","94.33","-18.08"],
-        ["@LycaonPictus","0–2","156.92","78.46","-18.20"],
-        ["@TheBeardedVet","1–1","201.38","100.69","+3.64"],
-        ["@kscarney24","1–0","164.36","164.36","+71.10"],
-        ["@dianne399","0–1","100.10","100.10","-16.02"]
-    ]
+const managerDataStore = {
+    "Brittney": [
+        ["@Waddlepenguin", "2–1", "368.60", "122.87", "+41.36"],
+        ["@mgreg00x", "2–1", "282.16", "94.05", "+35.06"],
+        ["@dudenamedtrevor", "2–1", "386.60", "128.87", "+50.66"],
+        ["@DawgPound247", "2–2", "346.78", "86.70", "+23.22"],
+        ["@EmMack", "2–1", "318.80", "106.27", "-11.40"],
+        ["@LycaonPictus", "2–0", "213.60", "106.80", "+6.90"],
+        ["@TB12isDaddy", "1–3", "472.22", "118.06", "-29.30"],
+        ["@CrazyCougars", "1–2", "348.72", "116.24", "+27.40"],
+        ["@BUNNIESUPBUDDY", "1–2", "318.72", "106.24", "-65.16"],
+        ["@dianne399", "1–1", "164.96", "82.48", "+4.74"],
+        ["@kscarney24", "1–0", "124.78", "124.78", "+26.26"],
+        ["@SanDiegoSuperBurgers", "1–2", "378.14", "126.05", "+14.86"],
+        ["@TheBeardedVet", "0–2", "172.36", "86.18", "-46.96"],
+        ["@drvargas", "0–3", "338.28", "112.76", "-40.38"],
+        ["@lightmyBONfire", "0–3", "299.76", "99.92", "-85.12"]
+    ],
     "Bonnie": [
         ["@TheBeardedVet", "2–0", "254.46", "127.23", "+74.32"],
         ["@drvargas", "3–0", "419.08", "139.69", "+136.64"],
@@ -366,23 +352,23 @@ window.onload = function() {
         ["@dudenamedtrevor", "0–3", "321.52", "107.17", "-125.10"],
         ["@CrazyCougars", "0–3", "338.28", "112.76", "-106.44"]
     ],
-        "Brittney": [
-        ["@Waddlepenguin", "2–1", "368.60", "122.87", "+41.36"],
-        ["@mgreg00x", "2–1", "282.16", "94.05", "+35.06"],
-        ["@dudenamedtrevor", "2–1", "386.60", "128.87", "+50.66"],
-        ["@DawgPound247", "2–2", "346.78", "86.70", "+23.22"],
-        ["@EmMack", "2–1", "318.80", "106.27", "-11.40"],
-        ["@LycaonPictus", "2–0", "213.60", "106.80", "+6.90"],
-        ["@TB12isDaddy", "1–3", "472.22", "118.06", "-29.30"],
-        ["@CrazyCougars", "1–2", "348.72", "116.24", "+27.40"],
-        ["@BUNNIESUPBUDDY", "1–2", "318.72", "106.24", "-65.16"],
-        ["@dianne399", "1–1", "164.96", "82.48", "+4.74"],
-        ["@kscarney24", "1–0", "124.78", "124.78", "+26.26"],
-        ["@SanDiegoSuperBurgers", "1–2", "378.14", "126.05", "+14.86"],
-        ["@TheBeardedVet", "0–2", "172.36", "86.18", "-46.96"],
-        ["@drvargas", "0–3", "338.28", "112.76", "-40.38"],
-        ["@lightmyBONfire", "0–3", "299.76", "99.92", "-85.12"]
-    ],
+    "Default": [
+        ["@EmMack","1–2","233.02","77.67","-77.16"],
+        ["@bcanfield0913","3–1","501.52","125.38","+29.30"],
+        ["@drvargas","2–2","438.42","109.61","+1.92"],
+        ["@mgreg00x","3–1","491.40","122.85","+66.12"],
+        ["@DawgPound247","1–2","305.12","101.71","-14.26"],
+        ["@dudenamedtrevor","1–2","336.36","112.12","-73.34"],
+        ["@BUNNIESUPBUDDY","0–3","334.24","111.41","-125.24"],
+        ["@CrazyCougars","1–2","303.26","101.09","+6.02"],
+        ["@lightmyBONfire","0–3","251.20","83.73","-110.32"],
+        ["@SanDiegoSuperBurgers","2–1","378.08","126.03","+22.50"],
+        ["@Waddlepenguin","1–2","282.98","94.33","-18.08"],
+        ["@LycaonPictus","0–2","156.92","78.46","-18.20"],
+        ["@TheBeardedVet","1–1","201.38","100.69","+3.64"],
+        ["@kscarney24","1–0","164.36","164.36","+71.10"],
+        ["@dianne399","0–1","100.10","100.10","-16.02"]
+    ]
 };
 
 async function openOverlay(managerId) {
@@ -436,8 +422,8 @@ async function openOverlay(managerId) {
                             </table>
                         </div>
                     </div>
-                </div>`; // <-- This closing tag was missing
-        } // <-- This brace was missing
+                </div>`;
+        }
     } catch (e) { 
         console.error("Firebase Error:", e); 
         target.innerHTML = `<p style="color:red; text-align:center; padding:50px;">Failed to decrypt dossier.</p>`;
