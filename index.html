@@ -523,6 +523,24 @@ const managerDataStore = {
         ["@DawgPound247", "0–3", "311.88", "103.96", "-104.88"]
     ],
 
+    "Evelyn": [
+        ["@TB12isDaddy", "3–0", "458.94", "152.98", "+124.70"],
+        ["@DawgPound247", "3–0", "438.92", "146.31", "+95.32"],
+        ["@Waddlepenguin", "3–0", "391.82", "130.61", "+66.10"],
+        ["@SanDiegoSuper...", "3–0", "392.20", "130.73", "+65.64"],
+        ["@lightmyBONfire", "3–0", "355.46", "118.49", "+80.80"],
+        ["@drvargas", "3–1", "482.96", "120.74", "+22.80"],
+        ["@EmMack", "3–1", "444.06", "111.02", "+74.30"],
+        ["@dudenamedtrevor", "2–2", "515.84", "128.96", "+31.70"],
+        ["@bcanfield0913", "2–1", "383.82", "127.94", "+65.10"],
+        ["@CrazyCougars", "2–1", "382.80", "127.60", "+70.64"],
+        ["@LycaonPictus", "2–0", "253.72", "126.86", "+39.12"],
+        ["@TheBeardedVet", "1–1", "258.36", "129.18", "-16.36"],
+        ["@dianne399", "1–0", "91.50", "91.50", "+18.62"],
+        ["@mgreg00x", "1–2", "293.14", "97.71", "-62.06"],
+        ["@kscarney24", "0–1", "59.64", "59.64", "-63.96"]
+    ],
+        
     "Jess": [
         ["@TheBeardedVet", "4–0", "493.06", "123.27", "+101.34"],
         ["@lightmyBONfire", "3–0", "445.72", "148.57", "+107.40"],
@@ -575,7 +593,7 @@ const managerDataStore = {
         ["@SanDiegoSuper...", "0–3", "336.92", "112.31", "-53.78"],
         ["@BUNNIESUPBUD...", "0–3", "325.72", "108.57", "-66.10"],
         ["@EmMack", "0–4", "384.36", "96.09", "-69.40"]
-    ]
+    ],
     
     "Steven": [
         ["@bcanfield0913", "3–0", "408.74", "136.25", "+70.46"],
@@ -629,7 +647,7 @@ const managerDataStore = {
         ["@BUNNIESUPBUDDY", "2–2", "484.16", "121.04", "-31.68"],
         ["@bcanfield0913", "1–2", "336.90", "112.30", "-50.98"],
         ["@mgreg00x", "0–3", "269.10", "89.70", "-107.40"]
-    ]
+    ],
     
     "MattS": [
         ["@bcanfield0913", "2–0", "219.32", "109.66", "+46.96"],
@@ -665,9 +683,7 @@ const managerDataStore = {
     ],
 
     "Alex": [
-        ["REDACTED", "0–0", "???.??", "0.00", "N/A"],
-        ["THOUGHTS & PRAYERS", "∞", "0.00", "0.00", "-100.00"],
-        ["LEAGUE GHOST", "DECEASED", "N/A", "N/A", "LOST SOUL"]
+        ["QUIT BEFORE WE STARTED", "0–0", "???.??", "0.00", "N/A"],
     ],
 };
 
@@ -705,6 +721,7 @@ async function openOverlay(managerId) {
                                 <p><strong>Avg PPG:</strong> ${d.careerAvg || '0.00'}</p>
                                 <p><strong>Playoffs:</strong> ${d.playoffAppearances || '0'}</p>
                                 <p><strong>Rings:</strong> ${d.championships || '0'} 🏆</p>
+                                <p><strong>Seasons:</strong> ${d.seasons || '0'}</p>
                             </div>
                         </div>
                     </div>
