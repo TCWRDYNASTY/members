@@ -426,7 +426,6 @@ window.onload = function() {
 // TEAM DATA REPOSITORY
 // =========================================================
 const managerDataStore = {
- {
     "An": [
         ["@EmMack", "1–2", "233.02", "77.67", "-77.16"],
         ["@bcanfield0913", "3–1", "501.52", "125.38", "+29.30"],
@@ -660,9 +659,7 @@ const managerDataStore = {
         ["@BUNNIESUPBUDDY", "2–2", "484.16", "121.04", "-31.68"],
         ["@bcanfield0913", "1–2", "336.90", "112.30", "-50.98"],
         ["@mgreg00x", "0–3", "269.10", "89.70", "-107.40"]
-    ]
-}
-    
+    ],
     "MattS": [
         ["@bcanfield0913", "2–0", "219.32", "109.66", "+46.96"],
         ["@LycaonPictus", "1–0", "98.54", "98.54", "+21.30"],
@@ -679,7 +676,6 @@ const managerDataStore = {
         ["@lightmyBONfire", "0–2", "180.14", "90.07", "-64.34"],
         ["@CrazyCougars", "0–3", "291.20", "97.07", "-110.04"]
     ],
-
     "Kurt": [
         ["@TheBeardedVet", "2–0", "273.30", "136.65", "+52.76"],
         ["@CrazyCougars", "1–0", "143.26", "143.26", "+75.86"],
@@ -695,10 +691,9 @@ const managerDataStore = {
         ["@bcanfield0913", "0–1", "98.52", "98.52", "-26.26"],
         ["@TB12isDaddy", "0–1", "93.26", "93.26", "-71.10"]
     ],
-
     "Alex": [
-        ["QUIT BEFORE WE STARTED", "0–0", "???.??", "0.00", "N/A"],
-    ],
+        ["QUIT BEFORE WE STARTED", "0–0", "???.??", "0.00", "N/A"]
+    ]
 };
 
 async function openOverlay(managerId) {
@@ -762,7 +757,8 @@ async function openOverlay(managerId) {
 }
 
 function generateH2HRows(managerId) {
-    const data = managerDataStore[managerId] || managerDataStore["Default"];
+    // Falls back to an empty array if managerId or "Default" don't match any key, avoiding a .map crash
+    const data = managerDataStore[managerId] || managerDataStore["Default"] || [];
     return data.map(r => `
         <tr>
             <td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td>
